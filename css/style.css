@@ -1,0 +1,36 @@
+
+#app {
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#files {
+    height: 100%;
+    width: 300px;
+    background: rgb(243, 243, 243);
+}
+
+#detail {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#panel {
+    width: 100%;
+    background: rgb(236, 235, 235);
+    height: 50px;
+}
+
+#title {}
+
+#save {}
+
+#wrap {}
+
+#wrap .cirru-editor {}

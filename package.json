@@ -1,0 +1,37 @@
+{
+  "name": "light-editor",
+  "version": "0.0.1",
+  "description": "An editor of Cirru",
+  "main": "index.js",
+  "scripts": {
+    "test": "coffee serve.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Cirru/cirru-light-editor.git"
+  },
+  "keywords": [
+    "cirru",
+    "editor"
+  ],
+  "author": "jiyinyiyiong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cirru/cirru-light-editor/issues"
+  },
+  "homepage": "https://github.com/Cirru/cirru-light-editor",
+  "devDependencies": {
+    "browserify": "^3.44.2",
+    "cirru-html": "^0.1.7",
+    "devtools-reloader-station": "0.0.4",
+    "ws-json-browser": "0.0.2-2"
+  },
+  "dependencies": {
+    "cirru-editor": "^0.2.4",
+    "cirru-parser": "^0.7.1",
+    "cirru-writer": "0.0.7",
+    "shelljs": "^0.2.6",
+    "ws": "^0.4.31",
+    "ws-json-server": "0.0.2-1"
+  }
+}
