@@ -28,7 +28,7 @@ fileModel =
   val: ->
     name: @name, ast: @editor.val()
 
-client.connect 7001, (ws) ->
+client.connect 'localhost', 7001, (ws) ->
 
   loadFile = (name) ->
     return if name is fileModel.name

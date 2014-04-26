@@ -15,8 +15,24 @@ Basicly, it scans and saves file in `env.PWD`, and does:
 
 ### Usage
 
-This editor is currently only running in my laptop.
-If you want to try it, there are steps to follow:
+The editor is not quite ready for daily use but you may try:
+
+```bash
+npm install -g cirru-light-editor
+```
+
+`cd` to a directory which contains `.cirru` files and run:
+
+```
+cirru-light-editor
+```
+
+Then you may visit http://repo.cirru.org/light-editor/
+and found it connected to `localhost:7001` and you can try editing.
+
+### Develop
+
+By following these steps, you can develop the code:
 
 * Setup Nginx (for Web page) and Node (for server)
 * Clone code and run `npm install`
