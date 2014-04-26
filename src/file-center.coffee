@@ -1,19 +1,20 @@
 
 require('shelljs/global')
 path = require 'path'
-{generate} = require 'cirru-writer'
 chokidar = require 'chokidar'
 events = require 'events'
+
+{generate} = require 'cirru-writer'
 {parseShort} = require 'cirru-parser'
 
 exports.FileCenter = class extends events.EventEmitter
   constructor: ->
-    @_files = {}
     @scanFiles()
     @listen()
     @watchFiles()
 
   scanFiles: ->
+    @_files = {}
     ls('-R', process.env.PWD)
     .forEach (filepath) =>
       if (path.extname filepath) is '.cirru'
@@ -22,8 +23,8 @@ exports.FileCenter = class extends events.EventEmitter
   fileList: ->
     Object.keys @_files
 
-  requestFile: (filepath) ->
-    @_files[filepath]
+  read: (filepath) ->
+    parseShort @_files[filepath]
 
   watchFiles: ->
     watcher = chokidar.watch process.env.PWD,
@@ -33,10 +34,19 @@ exports.FileCenter = class extends events.EventEmitter
       persistent: true
 
     watcher.on 'change', (filepath) =>
-      console.log filepath
+      filepath = path.relative process.env.PWD, filepath
       if @_sleep then return
       @_files[filepath] = cat filepath
       @emit 'change', filepath, @_files[filepath]
+
+    watcher.on 'add', => @updateList()
+    watcher.on 'addDir', => @updateList()
+    watcher.on 'unlink', => @updateList()
+    watcher.on 'unlinkDir', => @updateList()
+
+  updateList: ->
+    @scanFiles()
+    @emit 'tree-change'
 
   listen: ->
     @on 'change', (filepath, code) =>
@@ -45,3 +55,12 @@ exports.FileCenter = class extends events.EventEmitter
       @_sleep = yes
       setTimeout (=> @_sleep = no), 300
       @
+
+  save: (data) ->
+    name = data.name
+    code = generate data.ast
+
+    @_files[name] = code
+    @_sleep = yes
+    code.to name
+    @_sleep = no

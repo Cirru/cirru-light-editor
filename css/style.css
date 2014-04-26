@@ -1,4 +1,10 @@
 
+@import url('../node_modules/cirru-editor/css/cirru-editor.css');
+
+* {
+    box-sizing: border-box;
+}
+
 #app {
     margin: 0;
     position: absolute;
@@ -6,12 +12,26 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    background-color: #528AEC;
 }
 
 #files {
     height: 100%;
     width: 300px;
-    background: rgb(243, 243, 243);
+    color: white;
+    padding-right: 30px;
+}
+#files .filename {
+    padding: 4px 8px;
+    line-height: 24px;
+    font-size: 14px;
+    font-family: Menlo;
+    cursor: pointer;
+    text-align: right;
+}
+
+#files .filename:hover {
+    border-right: 2px white solid;
 }
 
 #detail {
@@ -23,14 +43,34 @@
 
 #panel {
     width: 100%;
-    background: rgb(236, 235, 235);
     height: 50px;
+}
+
+#filename {
+    color: white;
+    font-family: Menlo;
+    font-size: 13px;
 }
 
 #title {}
 
-#save {}
+.button {
+    background: rgb(174, 174, 255);
+    color: white;
+    font-family: fantasy;
+    padding: 0 7px;
+    line-height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 1em;
+}
 
-#wrap {}
+#wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-#wrap .cirru-editor {}
+#wrap .cirru-editor {
+    flex: 1;
+}

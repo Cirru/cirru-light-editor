@@ -10,6 +10,7 @@ html
     #files
     #detail
       #panel
+        span.button#save (= Save)
+        span.button#reload (= Reload)
         span#filename
-        span#save (= Save)
       #wrap

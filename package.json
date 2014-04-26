@@ -23,8 +23,10 @@
   "devDependencies": {
     "browserify": "^3.44.2",
     "cirru-html": "^0.1.7",
-    "devtools-reloader-station": "0.0.4",
-    "ws-json-browser": "0.0.2-2"
+    "devtools-reloader-station": "*",
+    "exorcist": "^0.1.6",
+    "ws-json-browser": "0.0.3",
+    "zepto-browserify": "^1.0.0"
   },
   "dependencies": {
     "cirru-editor": "^0.2.4",
@@ -32,6 +34,9 @@
     "cirru-writer": "0.0.7",
     "shelljs": "^0.2.6",
     "ws": "^0.4.31",
-    "ws-json-server": "0.0.2-1"
+    "ws-json-server": "0.0.3"
+  },
+  "bin": {
+    "cirru-editor": "./bin/editor.js"
   }
 }
