@@ -6,6 +6,8 @@ html
     meta (:charset utf-8)
     link (:rel stylesheet) (:href css/style.css)
     script (:defer) (:src build/build.js)
+    link (:rel icon) (:type image/png)
+      :href http://logo.cirru.org/cirru-32x32.png?v=3"
   body#app
     #files
     #detail
