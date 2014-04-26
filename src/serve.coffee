@@ -21,3 +21,6 @@ server.listen 7001, (ws) ->
 
   files.on 'file-change', (name) ->
     ws.emit 'file-change', name
+
+site = "http://repo.cirru.org/light-editor/"
+console.log "Listening 7001, visit #{site} to edit..."
