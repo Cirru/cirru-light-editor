@@ -53,6 +53,12 @@ client.connect 'localhost', 7001, (ws) ->
     fileModel.name = undefined
     loadFile name
 
+  saveFile = ->
+    if fileModel.editor?
+      ws.emit 'save-file', fileModel.val()
+      $('#save').removeClass('done')
+      setTimeout -> $('#save').addClass('done')
+
   listModel.bind (filename) ->
     loadFile filename
 
@@ -67,9 +73,14 @@ client.connect 'localhost', 7001, (ws) ->
         reloadFile()
 
   $('#save').click ->
-    if fileModel.editor?
-      ws.emit 'save-file', fileModel.val()
+    saveFile()
 
   $('#reload').click ->
     if fileModel.editor?
       reloadFile()
+
+  window.addEventListener 'keydown', (event) ->
+    if event.keyCode is 83 # 's'
+      if event.ctrlKey or event.metaKey
+        event.preventDefault()
+        saveFile()

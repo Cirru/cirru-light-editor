@@ -8,7 +8,7 @@ Basicly, it scans and saves file in `env.PWD`, and does:
 
 * Editing code in GUI
 * Load file from file system
-* Save code via WebSocket
+* Save (with Command s) code via WebSocket
 * Watch file system and reload file list
 
 ![](http://cirru.qiniudn.com/cirru-light-editor.png)
