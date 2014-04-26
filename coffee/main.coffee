@@ -22,11 +22,18 @@ listModel =
 fileModel =
   name: undefined
   editor: undefined
+  focused: yes
   changeFile: (name) ->
     @name = name
     $('#filename').text name
   val: ->
     name: @name, ast: @editor.val()
+
+window.addEventListener 'focus', ->
+  fileModel.focused = yes
+
+window.addEventListener 'blur', ->
+  fileModel.focused = no
 
 client.connect 'localhost', 7001, (ws) ->
 
@@ -41,6 +48,11 @@ client.connect 'localhost', 7001, (ws) ->
       fileModel.editor.val ast
       $('#wrap').append fileModel.editor.el
 
+  reloadFile = ->
+    name = fileModel.name
+    fileModel.name = undefined
+    loadFile name
+
   listModel.bind (filename) ->
     loadFile filename
 
@@ -49,12 +61,15 @@ client.connect 'localhost', 7001, (ws) ->
     listModel.files = list
     listModel.render()
 
+  ws.on 'file-change', (name) ->
+    if fileModel.name is name
+      unless fileModel.focused
+        reloadFile()
+
   $('#save').click ->
     if fileModel.editor?
       ws.emit 'save-file', fileModel.val()
 
   $('#reload').click ->
     if fileModel.editor?
-      name = fileModel.name
-      fileModel.name = undefined
-      loadFile name
+      reloadFile()

@@ -18,3 +18,6 @@ server.listen 7001, (ws) ->
 
   files.on 'tree-change', ->
     ws.emit 'get-list', files.fileList()
+
+  files.on 'file-change', (name) ->
+    ws.emit 'file-change', name

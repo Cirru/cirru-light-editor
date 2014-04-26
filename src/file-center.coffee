@@ -37,7 +37,7 @@ exports.FileCenter = class extends events.EventEmitter
       filepath = path.relative process.env.PWD, filepath
       if @_sleep then return
       @_files[filepath] = cat filepath
-      @emit 'change', filepath, @_files[filepath]
+      @emit 'file-change', filepath
 
     watcher.on 'add', => @updateList()
     watcher.on 'addDir', => @updateList()

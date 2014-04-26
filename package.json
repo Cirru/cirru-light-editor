@@ -1,6 +1,6 @@
 {
   "name": "cirru-light-editor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An editor of Cirru",
   "main": "lib/file-center.js",
   "scripts": {
