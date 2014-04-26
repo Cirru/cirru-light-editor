@@ -15,14 +15,31 @@
     background-color: #528AEC;
 }
 
-#files {
-    height: 100%;
+#sidebar {
     width: 300px;
-    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+#filter {
+    height: 50px;
+    text-align: right;
+    border: none;
+    outline: none;
+    background: transparent;
     padding-right: 30px;
+    font-size: 15px;
+    font-family: Menlo;
+    color: white;
+}
+
+#files {
+    color: white;
+    padding-right: 20px;
+    flex: 1;
 }
 #files .filename {
-    padding: 4px 8px;
+    padding: 4px 14px;
     line-height: 24px;
     font-size: 14px;
     font-family: Menlo;
@@ -30,8 +47,16 @@
     text-align: right;
 }
 
+.filename.exclude {
+    display: none;
+}
+
 #files .filename:hover {
-    border-right: 2px white solid;
+    box-shadow: 1px 0 0 #ccc;
+}
+
+#files .filename.open {
+    box-shadow: 1px 0 0 white;
 }
 
 #detail {
@@ -56,11 +81,9 @@
 #title {}
 
 .button {
-    background: rgb(174, 174, 255);
     color: white;
     font-family: fantasy;
     padding: 0 7px;
-    border-radius: 20px;
     cursor: pointer;
     margin-right: 1em;
     display: inline-block;

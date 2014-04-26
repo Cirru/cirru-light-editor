@@ -16,10 +16,10 @@ server.listen 7001, (ws) ->
   ws.on 'save-file', (data) ->
     files.save data
 
-  files.on 'tree-change', ->
+  ws.listenTo files, 'tree-change', ->
     ws.emit 'get-list', files.fileList()
 
-  files.on 'file-change', (name) ->
+  ws.listenTo files, 'file-change', (name) ->
     ws.emit 'file-change', name
 
 site = "http://repo.cirru.org/light-editor/"

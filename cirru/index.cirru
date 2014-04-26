@@ -9,7 +9,9 @@ html
     link (:rel icon) (:type image/png)
       :href http://logo.cirru.org/cirru-32x32.png?v=3"
   body#app
-    #files
+    #sidebar
+      input#filter
+      #files
     #detail
       #panel
         span.button#save (= Save)

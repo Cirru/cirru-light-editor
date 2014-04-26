@@ -1,6 +1,6 @@
 {
   "name": "cirru-light-editor",
-  "version": "0.0.5-1",
+  "version": "0.0.5-2",
   "description": "An editor of Cirru",
   "main": "lib/file-center.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "cirru-html": "^0.1.7",
     "devtools-reloader-station": "*",
     "exorcist": "^0.1.6",
-    "ws-json-browser": "0.0.4-2",
+    "ws-json-browser": "0.0.4-3",
     "zepto-browserify": "^1.0.0"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "cirru-writer": "0.0.8-3",
     "shelljs": "^0.2.6",
     "ws": "^0.4.31",
-    "ws-json-server": "0.0.4-2"
+    "ws-json-server": "0.0.4-3"
   },
   "bin": {
     "cirru-light-editor": "./bin/editor.js"

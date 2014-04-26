@@ -25,7 +25,8 @@ fileModel =
   focused: yes
   changeFile: (name) ->
     @name = name
-    $('#filename').text name
+    $('.filename.open').removeClass 'open'
+    $(".filename[data-file='#{name}']").addClass 'open'
   val: ->
     name: @name, ast: @editor.val()
 
@@ -34,6 +35,14 @@ window.addEventListener 'focus', ->
 
 window.addEventListener 'blur', ->
   fileModel.focused = no
+
+$('#filter').on 'input', (event) ->
+  query = $(@).val()
+  $('.filename').each (i, item) ->
+    status = $(item).data('file').indexOf(query) < 0
+    $(item).toggleClass 'exclude', status
+
+console.log $('#filter')
 
 client.connect 'localhost', 7001, (ws) ->
 
