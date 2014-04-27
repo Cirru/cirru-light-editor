@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: row;
     background-color: #528AEC;
+    font-family: menlo;
 }
 
 #sidebar {
@@ -45,6 +46,7 @@
     font-family: Menlo;
     cursor: pointer;
     text-align: right;
+    font-weight: 100;
 }
 
 .filename.exclude {
@@ -52,11 +54,11 @@
 }
 
 #files .filename:hover {
-    box-shadow: 1px 0 0 #ccc;
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.6);
 }
 
 #files .filename.open {
-    box-shadow: 1px 0 0 white;
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.3);
 }
 
 #detail {
@@ -69,7 +71,8 @@
 #panel {
     width: 100%;
     height: 50px;
-    padding-top: 0.5em;
+    padding-top: 1em;
+    font-size: 14px;
 }
 
 #filename {
@@ -82,8 +85,6 @@
 
 .button {
     color: white;
-    font-family: fantasy;
-    padding: 0 7px;
     cursor: pointer;
     margin-right: 1em;
     display: inline-block;

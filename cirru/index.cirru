@@ -16,5 +16,4 @@ html
       #panel
         span.button#save (= Save)
         span.button#reload (= Reload)
-        span#filename
       #wrap
