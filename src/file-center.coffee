@@ -4,7 +4,7 @@ path = require 'path'
 chokidar = require 'chokidar'
 events = require 'events'
 
-{generate} = require 'cirru-writer'
+{pretty} = require 'cirru-writer'
 {parseShort} = require 'cirru-parser'
 
 exports.FileCenter = class extends events.EventEmitter
@@ -58,7 +58,7 @@ exports.FileCenter = class extends events.EventEmitter
 
   save: (data) ->
     name = data.name
-    code = generate data.ast
+    code = pretty data.ast
 
     @_files[name] = code
     @_sleep = yes
