@@ -7,7 +7,7 @@
 = store $ require :./store
 
 = root process.env.PWD
-= entry $ . process.argv 3
+= entry $ . process.argv 2
 
 = watcher $ new gaze.Gaze $ path.join entry :** :*.cirru
 
@@ -16,7 +16,9 @@
 
 wss.on :connection $ \ (ws)
 
-  ws.send $ JSON.stringify (store.get)
+  ws.send $ JSON.stringify $ object
+    :type :sync
+    :data (store.get)
 
   ws.on :message $ \ (message)
     = action $ JSON.parse message
@@ -29,8 +31,8 @@ watcher.on :all $ \ (event filepath)
   console.log filepath
   store.set $ dirReader.getInfo entry
 
-store.dispatcher.on :change $ \ (diff)
+store.dispatcher.on :change $ \ (delta)
   wss.clients.forEach $ \ (ws)
-    ws.send $ JSON.stringify diff
+    ws.send $ JSON.stringify delta
 
 console.log ":started server at 7001"

@@ -5,6 +5,8 @@
 
 = diffpatch $ jsondiffpatch.create $ object
   :objectHash $ \ (obj) obj.fullpath
+  :textDiff $ object
+    :minLength 20
 
 = dispatcher $ new events.EventEmitter
 
@@ -13,9 +15,11 @@
 = exports.dispatcher dispatcher
 
 = exports.get $ \ ()
-  store
+  return store
 
 = exports.set $ \ (data)
-  = diff $ diffpatch.diff store data
+  = delta $ diffpatch.diff store data
   = store $ _.cloneDeep data
-  dispatcher.emit :change diff
+  dispatcher.emit :change $ object
+    :type :patch
+    :delta delta

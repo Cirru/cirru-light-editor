@@ -1,12 +1,13 @@
 
 fs = require('fs');
+webpack = require('webpack');
 
 module.exports = {
   entry: {
     main: [
       'webpack-dev-server/client?http://0.0.0.0:8080',
       'webpack/hot/dev-server',
-      './src/main'
+      './client/main'
     ]
   },
   output: {
@@ -19,8 +20,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.coffee$/, loader: 'coffee'},
-      {test: /\.cirru$/, loader: 'cirru-script'}
+      {test: /\.cirru$/, loaders: ['react-hot', 'cirru-script'], exclude: /node_modules/}
     ]
   },
   plugins: [
@@ -29,6 +29,8 @@ module.exports = {
         content = JSON.stringify(stats.toJson().assetsByChunkName, null, 2)
         return fs.writeFileSync('assets.json', content)
       })
-    }
+    },
+    new webpack.NoErrorsPlugin()
+    // new webpack.IgnorePlugin(/ModuleName$/, /jsondiffpatch/)
   ]
 }

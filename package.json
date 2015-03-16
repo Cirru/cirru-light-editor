@@ -21,6 +21,7 @@
     "gulp": "^3.8.11",
     "gulp-cirru-html": "0.0.4",
     "react": "^0.13.0",
+    "react-hot-loader": "^1.2.3",
     "webpack": "^1.5.3",
     "webpack-dev-server": "^1.7.0"
   },
