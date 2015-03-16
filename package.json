@@ -27,6 +27,7 @@
   "dependencies": {
     "gaze": "^0.5.1",
     "jsondiffpatch": "^0.1.31",
+    "lodash": "^3.5.0",
     "ws": "^0.7.1"
   },
   "repository": {

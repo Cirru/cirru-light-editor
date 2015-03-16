@@ -13,7 +13,6 @@
 
 = getSize $ \ (name)
   = stat $ fs.statSync name
-  console.log stat.size
   return stat.size
 
 = getPathInfo $ \ (filepath)

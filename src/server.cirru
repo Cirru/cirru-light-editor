@@ -1,2 +1,36 @@
 
-console.log :demo
+= WebSocketServer $ require :ws
+= gaze $ require :gaze
+= path $ require :path
+= dirReader $ require :./dir-reader
+
+= store $ require :./store
+
+= root process.env.PWD
+= entry $ . process.argv 3
+
+= watcher $ new gaze.Gaze $ path.join entry :** :*.cirru
+
+= wss $ new WebSocketServer.Server $ object
+  :port 7001
+
+wss.on :connection $ \ (ws)
+
+  ws.send $ JSON.stringify (store.get)
+
+  ws.on :message $ \ (message)
+    = action $ JSON.parse message
+
+  ws.on :close $ \ ()
+
+store.set $ dirReader.getInfo entry
+
+watcher.on :all $ \ (event filepath)
+  console.log filepath
+  store.set $ dirReader.getInfo entry
+
+store.dispatcher.on :change $ \ (diff)
+  wss.clients.forEach $ \ (ws)
+    ws.send $ JSON.stringify diff
+
+console.log ":started server at 7001"
