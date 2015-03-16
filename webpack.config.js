@@ -14,7 +14,6 @@ module.exports = {
     filename: '[name].js',
     publicPath: 'http://localhost:8080/build/'
   },
-  devtool: 'eval-source-map',
   resolve: {
     extensions: ['', '.js', '.cirru']
   },

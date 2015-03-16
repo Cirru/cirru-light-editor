@@ -14,15 +14,21 @@
   "devDependencies": {
     "cirru-script": "0.1.*",
     "cirru-script-loader": "0.0.3",
+    "classnames": "^1.1.4",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.0",
     "gaze": "^0.5.1",
     "gulp": "^3.8.11",
     "gulp-cirru-html": "0.0.4",
+    "react": "^0.13.0",
     "webpack": "^1.5.3",
     "webpack-dev-server": "^1.7.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "gaze": "^0.5.1",
+    "jsondiffpatch": "^0.1.31",
+    "ws": "^0.7.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Cirru/cirru-light-editor.git"
