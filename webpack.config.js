@@ -20,7 +20,9 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.cirru$/, loaders: ['react-hot', 'cirru-script'], exclude: /node_modules/}
+      {test: /\.cirru$/, loaders: ['react-hot', 'cirru-script'], exclude: /node_modules/},
+      {test: /\.png$/, loaders: ['url']},
+      {test: /\.css$/, loaders: ['style', 'css']},
     ]
   },
   plugins: [

@@ -1,5 +1,9 @@
 
+= React $ require :react
+require :cirru-editor/style/layout.css
+
 = store $ require :./store
+= App $ React.createFactory $ require :./components/app
 
 = ws $ new WebSocket $ ++: :ws://localhost:7001
 
@@ -15,3 +19,5 @@
 
 store.dispatcher.on :change $ \ ()
   console.log (store.get)
+
+React.render (App) document.body
