@@ -13,10 +13,15 @@
 
 = exports.get $ \ () store
 
+= exports.getCode $ \ () store.code
+
+= exports.getTree $ \ () store.tree
+
 = exports.dispatcher dispatcher
 
 = exports.set $ \ (data)
   = store data
+  dispatcher.emit :change
 
 = exports.patch $ \ (delta)
   diffpatch.patch store delta

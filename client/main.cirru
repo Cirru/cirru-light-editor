@@ -17,7 +17,4 @@ require :cirru-editor/style/layout.css
       console.log :patch action.delta
       store.patch action.delta
 
-store.dispatcher.on :change $ \ ()
-  console.log (store.get)
-
 React.render (App) document.body

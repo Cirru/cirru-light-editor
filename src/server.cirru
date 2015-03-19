@@ -6,8 +6,7 @@
 
 = store $ require :./store
 
-= root process.env.PWD
-= entry $ . process.argv 2
+= entry :demo
 
 = watcher $ new gaze.Gaze $ path.join entry :** :*.cirru
 
