@@ -9,6 +9,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: row;
+    background: hsl(240, 76%, 95%);
 }
 
 .sidebar {
@@ -56,8 +57,29 @@ body {
 }
 
 .header {
-    height: 50px;
+    height: 36px;
     background-color: hsl(253, 59%, 83%);
+    line-height: 36px;
+    padding: 0 10px;
+    font-family: Menlo;
+    color: white;
+    font-size: 14px;
+}
+
+.header .name {
+    margin-right: 40px;
+}
+
+.header .button {
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+    background-color: hsl(246, 79%, 82%);
+    cursor: pointer;
+}
+
+.header .button:hover {
+    background-color: hsl(240, 100%, 88%);
 }
 
 .workspace .cirru-editor {

@@ -1,11 +1,13 @@
 
 = React $ require :react
+= parser $ require :cirru-parser
 
 = store $ require :../store
 
 = Editor $ React.createFactory $ require :cirru-editor
 = Folder $ React.createFactory $ require :./folder
 = div $ React.createFactory :div
+= span $ React.createFactory :span
 
 = module.exports $ React.createClass $ object
   :displayName :App
@@ -30,13 +32,23 @@
       :tree $ store.getTree
 
   :onSelect $ \ (data)
+    = info $ . @state.code data.fullpath
     @setState $ object
       :open data.fullpath
+      :ast $ parser.pare info.text
+
+  :onSave $ \ ()
+
+  :onClose $ \ ()
+    @setState $ object
+      :open :
 
   :onChange $ \ (ast focus)
     @setState $ object (:ast ast) (:focus focus)
 
   :render $ \ ()
+    = info $ . @state.code @state.open
+
     div (object (:className :app))
       div
         object (:className :sidebar)
@@ -44,12 +56,23 @@
           Folder $ object (:data @state.tree) (:onSelect @onSelect)
             :open @state.open
           , undefined
-      div
-        object (:className :workspace)
+      if (? info)
         div
-          object (:className :header)
-        Editor $ object
-          :ast @state.ast
-          :focus @state.focus
-          :onChange @onChange
-
+          object (:className :workspace)
+          div
+            object (:className :header)
+            span
+              object (:className :name)
+              , @state.open
+            span
+              object (:className :button) (:onClick @onSave)
+              , :save
+            span
+              object (:className :button) (:onClick @onClose)
+              , :close
+          Editor $ object
+            :key @state.open
+            :ast @state.ast
+            :focus @state.focus
+            :onChange @onChange
+        , null

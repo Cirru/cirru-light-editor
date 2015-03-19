@@ -13,6 +13,7 @@
   ],
   "devDependencies": {
     "cirru-editor": "^0.5.2",
+    "cirru-parser": "^0.10.2",
     "cirru-script": "0.1.*",
     "cirru-script-loader": "0.0.3",
     "classnames": "^1.1.4",
