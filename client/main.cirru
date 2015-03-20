@@ -3,9 +3,13 @@
 require :cirru-editor/style/layout.css
 
 = store $ require :./store
+= actions $ require :./actions
 = App $ React.createFactory $ require :./components/app
 
 = ws $ new WebSocket $ ++: :ws://localhost:7001
+
+= actions.send $ \ (data)
+  ws.send $ JSON.stringify data
 
 = ws.onmessage $ \ (msg)
   = action $ JSON.parse msg.data

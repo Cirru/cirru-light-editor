@@ -3,6 +3,7 @@
 = parser $ require :cirru-parser
 
 = store $ require :../store
+= actions $ require :../actions
 
 = Editor $ React.createFactory $ require :cirru-editor
 = Folder $ React.createFactory $ require :./folder
@@ -38,6 +39,7 @@
       :ast $ parser.pare info.text
 
   :onSave $ \ ()
+    actions.update @state.open @state.ast
 
   :onClose $ \ ()
     @setState $ object
@@ -47,6 +49,8 @@
     @setState $ object (:ast ast) (:focus focus)
 
   :render $ \ ()
+    if (not $ and (? @state.code) (? @state.tree))
+      do $ return (div)
     = info $ . @state.code @state.open
 
     div (object (:className :app))

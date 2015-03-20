@@ -5,6 +5,7 @@
 = dirReader $ require :./dir-reader
 
 = store $ require :./store
+= writer $ require :./writer
 
 = entry :demo
 
@@ -21,6 +22,9 @@ wss.on :connection $ \ (ws)
 
   ws.on :message $ \ (message)
     = action $ JSON.parse message
+    switch action.action
+      :update
+        writer.write action.file action.ast
 
   ws.on :close $ \ ()
 
