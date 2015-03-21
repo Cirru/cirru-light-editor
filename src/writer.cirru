@@ -3,5 +3,5 @@
 = writer $ require :cirru-writer
 
 = exports.write $ \ (filename ast)
-  = code $ writer.pretty ast
+  = code $ writer.render ast
   fs.writeFileSync filename code

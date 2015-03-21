@@ -1,6 +1,7 @@
 
 = React $ require :react
 = parser $ require :cirru-parser
+= writer $ require :cirru-writer
 
 = store $ require :../store
 = actions $ require :../actions
@@ -52,6 +53,7 @@
     if (not $ and (? @state.code) (? @state.tree))
       do $ return (div)
     = info $ . @state.code @state.open
+    = formatedCode $ writer.render @state.ast
 
     div (object (:className :app))
       div
@@ -68,9 +70,10 @@
             span
               object (:className :name)
               , @state.open
-            span
-              object (:className :button) (:onClick @onSave)
-              , :save
+            if (isnt formatedCode info.text)
+              span
+                object (:className :button) (:onClick @onSave)
+                , :save
             span
               object (:className :button) (:onClick @onClose)
               , :close
