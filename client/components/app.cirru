@@ -85,39 +85,34 @@
         @manualBreaks event.target
         @onTextChange event
 
-  :render $ \ ()
-    if (not $ and (? @state.code) (? @state.tree))
-      do $ return (div)
+  :renderHeader $ \ ()
     = info $ . @state.code @state.open
     if (@isCirruMode)
       do $ = formatedCode $ writer.render @state.ast
       do $ = formatedCode @state.text
 
-    div (object (:className :app))
+    div
+      object (:className :header)
       div
-        object (:className :sidebar)
-        if @state.tree
-          Folder $ object (:data @state.tree) (:onSelect @onSelect)
-            :open @state.open
-          , undefined
-      if (? info)
+        object (:className :name)
+        , @state.open
+      if (isnt formatedCode info.text)
+        div
+          object (:className :button) (:onClick @onSave)
+          , :save
+      if (@isCirruFile) $ div
+        object (:className :button) (:onClick @onFallbackToggle)
+        ++: :text: (if @state.fallback :on :off)
+      div
+        object (:className :button) (:onClick @onClose)
+        , :close
+
+  :render $ \ ()
+
+    div (object (:className :app))
+      if (and @state.code @state.open)
         div
           object (:className :workspace)
-          div
-            object (:className :header)
-            span
-              object (:className :name)
-              , @state.open
-            if (isnt formatedCode info.text)
-              span
-                object (:className :button) (:onClick @onSave)
-                , :save
-            if (@isCirruFile) $ span
-              object (:className :button) (:onClick @onFallbackToggle)
-              ++: :text: (if @state.fallback :on :off)
-            span
-              object (:className :button) (:onClick @onClose)
-              , :close
           if (@isCirruMode)
             Editor $ object
               :key @state.open
@@ -129,4 +124,13 @@
               :value @state.text
               :onChange @onTextChange
               :onKeyDown @onTextKeydown
-        , null
+        div
+          object (:className :workspace)
+
+      div
+        object (:className :sidebar)
+        if (and @state.code @state.open)
+          @renderHeader
+        if @state.tree
+          Folder $ object (:data @state.tree) (:onSelect @onSelect)
+            :open @state.open

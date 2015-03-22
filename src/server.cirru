@@ -7,7 +7,7 @@
 = store $ require :./store
 = writer $ require :./writer
 
-= entry :demo
+= entry $ . process.argv 2
 
 = watcher $ new gaze.Gaze $ path.join entry :** :*
 

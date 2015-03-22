@@ -46,11 +46,11 @@
       div
         object (:className :line) (:onClick @onToggle)
         span
-          object (:className :icon)
-          if @state.isExpanded iconExpanded iconFolded
-        span
           object (:className :name)
           , @props.data.name
+        span
+          object (:className :icon)
+          if @state.isExpanded iconExpanded iconFolded
       if @state.isExpanded
         div
           object (:className :children)
