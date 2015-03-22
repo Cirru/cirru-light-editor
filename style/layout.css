@@ -79,6 +79,7 @@ body {
     text-align: center;
     background-color: hsl(246, 79%, 82%);
     cursor: pointer;
+    padding: 0 8px;
 }
 
 .header .button:hover {

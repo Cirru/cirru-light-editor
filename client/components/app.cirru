@@ -6,6 +6,8 @@
 = store $ require :../store
 = actions $ require :../actions
 
+= mixinBreaks $ require :../mixins/breaks
+
 = Editor $ React.createFactory $ require :cirru-editor
 = Folder $ React.createFactory $ require :./folder
 = div $ React.createFactory :div
@@ -14,6 +16,7 @@
 
 = module.exports $ React.createClass $ object
   :displayName :App
+  :mixins $ array mixinBreaks
 
   :getInitialState $ \ ()
     object
@@ -75,6 +78,13 @@
     @setState $ object
       :fallback $ not @state.fallback
 
+  :onTextKeydown $ \ (event)
+    if (is event.keyCode 13)
+      do
+        event.preventDefault
+        @manualBreaks event.target
+        @onTextChange event
+
   :render $ \ ()
     if (not $ and (? @state.code) (? @state.tree))
       do $ return (div)
@@ -118,4 +128,5 @@
               :key @state.open
               :value @state.text
               :onChange @onTextChange
+              :onKeyDown @onTextKeydown
         , null
