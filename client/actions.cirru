@@ -2,8 +2,8 @@
 = exports.send $ \ ()
   console.warn ":need to implement send"
 
-= exports.update $ \ (file ast)
+= exports.update $ \ (file content)
   @send $ object
     :action :update
     :file file
-    :ast ast
+    :content content

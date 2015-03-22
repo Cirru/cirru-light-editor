@@ -20,7 +20,7 @@
 
   :getInitialState $ \ ()
     object
-      :isExpanded false
+      :isExpanded true
 
   :onToggle $ \ (event)
     event.stopPropagation

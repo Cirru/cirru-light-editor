@@ -12,7 +12,7 @@
     "workflow"
   ],
   "devDependencies": {
-    "cirru-editor": "^0.5.2",
+    "cirru-editor": "^0.5.5",
     "cirru-parser": "^0.10.2",
     "cirru-script": "0.1.*",
     "cirru-script-loader": "0.0.3",
@@ -32,7 +32,6 @@
     "webpack-dev-server": "^1.7.0"
   },
   "dependencies": {
-    "cirru-writer": "0.1.0-1",
     "gaze": "^0.5.1",
     "jsondiffpatch": "^0.1.31",
     "lodash": "^3.5.0",

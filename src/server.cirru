@@ -9,7 +9,7 @@
 
 = entry :demo
 
-= watcher $ new gaze.Gaze $ path.join entry :** :*.cirru
+= watcher $ new gaze.Gaze $ path.join entry :** :*
 
 = wss $ new WebSocketServer.Server $ object
   :port 7001
@@ -24,7 +24,7 @@ wss.on :connection $ \ (ws)
     = action $ JSON.parse message
     switch action.action
       :update
-        writer.write action.file action.ast
+        writer.write action.file action.content
 
   ws.on :close $ \ ()
 
