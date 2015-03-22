@@ -8,6 +8,10 @@
 = writer $ require :./writer
 
 = entry $ . process.argv 2
+if (not $ ? entry)
+  do
+    console.log ":please specify a folder"
+    process.exit 1
 
 = watcher $ new gaze.Gaze $ path.join entry :** :*
 

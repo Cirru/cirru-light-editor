@@ -10,3 +10,4 @@ html
     script (:defer)
       :src (@ main)
   body
+    .hint "Failed to Load JavaScript"

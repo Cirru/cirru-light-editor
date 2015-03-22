@@ -6,6 +6,7 @@ index.html
 lib/
 
 js/
+dist/
 build/
 /demo/
 /assets.json

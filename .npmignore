@@ -1,9 +1,12 @@
 
 /build/
-/coffee/
-/demos/
-/js/
-/coffee/
+/dist/
+/client
+/demo/
 /src/
-/index.html
-/make.coffee
+/style
+/gulpfile.cirru
+/assets.json
+
+/index.*
+/webpack.*

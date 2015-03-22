@@ -10,9 +10,6 @@ Basicly, it scans and saves file in `env.PWD`, and does:
 * Load file from file system
 * Save (with Command s) code via WebSocket
 * Watch file system and reload file list
-* A not obvious and dirty file filter
-
-![](http://cirru.qiniudn.com/cirru-light-editor.png)
 
 ### Usage
 
@@ -25,7 +22,8 @@ npm install -g cirru-light-editor
 `cd` to a directory which contains `.cirru` files and run:
 
 ```
-cirru-light-editor
+cirru-light-editor folder
+cle folder # a short alias
 ```
 
 Then you may visit http://repo.cirru.org/light-editor/
@@ -33,16 +31,7 @@ and found it connected to `localhost:7001` and you can try editing.
 
 ### Develop
 
-By following these steps, you can develop the code:
-
-* Setup Nginx (for Web page) and Node (for server)
-* Clone code and run `npm install`
-* Run `coffee make compile` to compile code
-* Prepare a directory with `some.cirru` files
-* Run `coffee src/serve.coffee` to listen at `7001`
-* Visit generated `index.html` to connect to serve
-
-And hopefully you would see it working.
+This project is written in CirruScript.
 
 ### License
 

@@ -134,3 +134,6 @@
         if @state.tree
           Folder $ object (:data @state.tree) (:onSelect @onSelect)
             :open @state.open
+          div
+            object (:className :hint)
+            , ":Wanting for ws://localhost:7001"

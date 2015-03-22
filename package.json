@@ -24,8 +24,11 @@
     "file-loader": "^0.8.1",
     "gulp": "^3.8.11",
     "gulp-cirru-html": "0.0.4",
+    "gulp-cirru-script": "0.0.2-2",
+    "gulp-rename": "^1.2.0",
     "react": "0.13.x",
     "react-hot-loader": "^1.2.3",
+    "rsyncwrapper": "^0.4.2",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
     "webpack": "^1.5.3",
@@ -42,7 +45,8 @@
     "url": "https://github.com/Cirru/cirru-light-editor.git"
   },
   "bin": {
-    "cirru-light-editor": "./bin/editor.js"
+    "cirru-light-editor": "./bin/editor.js",
+    "cle": "./bin/editor.js"
   },
   "bugs": {
     "url": "https://github.com/Cirru/cirru-light-editor/issues"

@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../lib/serve.js');
+require('../lib/server.js');
