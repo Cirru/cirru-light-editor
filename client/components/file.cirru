@@ -1,9 +1,10 @@
 
-= React $ require :react
-= classnames $ require :classnames
+var
+  React $ require :react
+  classnames $ require :classnames
 
-= div $ React.createFactory :div
-= T React.PropTypes
+  div $ React.createFactory :div
+  T React.PropTypes
 
 = module.exports $ React.createClass $ object
   :displayName :file

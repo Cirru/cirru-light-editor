@@ -1,19 +1,22 @@
 
-= fs $ require :fs
-= path $ require :path
+var
+  fs $ require :fs
+  path $ require :path
 
-= isDir $ \ (name)
-  = stat $ fs.statSync name
+var isDir $ \ (name)
+  var
+    stat $ fs.statSync name
   stat.isDirectory
 
-= readDir $ \ (name)
+var readDir $ \ (name)
   fs.readdirSync name
 
-= getSize $ \ (name)
-  = stat $ fs.statSync name
+var getSize $ \ (name)
+  var
+    stat $ fs.statSync name
   return stat.size
 
-= getPathInfo $ \ (filepath code)
+var getPathInfo $ \ (filepath code)
   if (isDir filepath)
     do
       = list $ readDir filepath
@@ -30,13 +33,16 @@
         :text $ fs.readFileSync filepath :utf8
         :extname $ path.extname filepath
         :size $ getSize filepath
-      = info $ object
+      var info $ object
         :type :file
         :fullpath filepath
         :name $ path.basename filepath
       return info
+  return
 
 = exports.getInfo $ \ (name)
-  = code $ object
-  = info $ getPathInfo name code
+  var
+    code $ object
+    info $ getPathInfo name code
+
   object (:code code) (:tree info)

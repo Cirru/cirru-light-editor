@@ -1,18 +1,19 @@
 
-= React $ require :react
-= parser $ require :cirru-parser
-= writer $ require :cirru-writer
+var
+  React $ require :react
+  parser $ require :cirru-parser
+  writer $ require :cirru-writer
 
-= store $ require :../store
-= actions $ require :../actions
+  store $ require :../store
+  actions $ require :../actions
 
-= mixinBreaks $ require :../mixins/breaks
+  mixinBreaks $ require :../mixins/breaks
 
-= Editor $ React.createFactory $ require :cirru-editor
-= Folder $ React.createFactory $ require :./folder
-= div $ React.createFactory :div
-= span $ React.createFactory :span
-= textarea $ React.createFactory :textarea
+  Editor $ React.createFactory $ require :cirru-editor
+  Folder $ React.createFactory $ require :./folder
+  div $ React.createFactory :div
+  span $ React.createFactory :span
+  textarea $ React.createFactory :textarea
 
 = module.exports $ React.createClass $ object
   :displayName :App
@@ -56,6 +57,7 @@
     if (@isCirruMode)
       do $ actions.update @state.open $ writer.render @state.ast
       do $ actions.update @state.open @state.text
+    return
 
   :onClose $ \ ()
     @setState $ object
@@ -73,6 +75,7 @@
         :ast $ parser.pare event.target.value
       do $ @setState $ object
         :text event.target.value
+    return
 
   :onFallbackToggle $ \ ()
     @setState $ object
@@ -84,6 +87,7 @@
         event.preventDefault
         @manualBreaks event.target
         @onTextChange event
+    return
 
   :renderHeader $ \ ()
     = info $ . @state.code @state.open
@@ -96,13 +100,13 @@
       div
         object (:className :name)
         , @state.open
-      if (isnt formatedCode info.text)
+      cond (isnt formatedCode info.text)
         div
           object (:className :button) (:onClick @onSave)
           , :save
-      if (@isCirruFile) $ div
+      cond (@isCirruFile) $ div
         object (:className :button) (:onClick @onFallbackToggle)
-        ++: :text: (if @state.fallback :on :off)
+        + :text: (cond @state.fallback :on :off)
       div
         object (:className :button) (:onClick @onClose)
         , :close
@@ -110,10 +114,10 @@
   :render $ \ ()
 
     div (object (:className :app))
-      if (and @state.code @state.open)
+      cond (and @state.code @state.open)
         div
           object (:className :workspace)
-          if (@isCirruMode)
+          cond (@isCirruMode)
             Editor $ object
               :key @state.open
               :ast @state.ast
@@ -129,9 +133,9 @@
 
       div
         object (:className :sidebar)
-        if (and @state.code @state.open)
+        cond (and @state.code @state.open)
           @renderHeader
-        if @state.tree
+        cond @state.tree
           Folder $ object (:data @state.tree) (:onSelect @onSelect)
             :open @state.open
           div

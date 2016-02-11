@@ -1,15 +1,16 @@
 
-= jsondiffpatch $ require :jsondiffpatch
-= events $ require :events
+var
+  jsondiffpatch $ require :jsondiffpatch
+  events $ require :events
 
-= diffpatch $ jsondiffpatch.create $ object
-  :objectHash $ \ (obj) obj.fullpath
-  :textDiff $ object
-    :minLength 20
+  diffpatch $ jsondiffpatch.create $ object
+    :objectHash $ \ (obj) obj.fullpath
+    :textDiff $ object
+      :minLength 20
 
-= dispatcher $ new events.EventEmitter
+  dispatcher $ new events.EventEmitter
 
-= store $ object
+  store $ object
 
 = exports.get $ \ () store
 

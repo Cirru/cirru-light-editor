@@ -1,18 +1,22 @@
 
-= React $ require :react
+var
+  React $ require :react
+
 require :cirru-editor/style/layout.css
 
-= store $ require :./store
-= actions $ require :./actions
-= App $ React.createFactory $ require :./components/app
+var
+  store $ require :./store
+  actions $ require :./actions
+  App $ React.createFactory $ require :./components/app
 
-= ws $ new WebSocket $ ++: :ws://localhost:7001
+  ws $ new WebSocket $ + :ws://localhost:7001
 
 = actions.send $ \ (data)
   ws.send $ JSON.stringify data
 
 = ws.onmessage $ \ (msg)
-  = action $ JSON.parse msg.data
+  var action $ JSON.parse msg.data
+  console.log ":on message" action
   switch action.type
     :sync
       console.log :sync action.data
@@ -20,5 +24,6 @@ require :cirru-editor/style/layout.css
     :patch
       console.log :patch action.delta
       store.patch action.delta
+  return
 
 React.render (App) document.body

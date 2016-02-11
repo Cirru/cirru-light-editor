@@ -12,10 +12,11 @@
     "workflow"
   ],
   "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
     "cirru-editor": "^0.5.5",
     "cirru-parser": "^0.10.2",
-    "cirru-script": "0.1.*",
-    "cirru-script-loader": "0.0.3",
+    "cirru-script": "0.5.2-1",
+    "cirru-script-loader": "0.5.2-1",
     "cirru-writer": "^0.2.0",
     "classnames": "^1.1.4",
     "coffee-loader": "^0.7.2",
@@ -23,22 +24,23 @@
     "css-loader": "^0.9.1",
     "file-loader": "^0.8.1",
     "gulp": "^3.8.11",
-    "gulp-cirru-html": "0.0.4",
-    "gulp-cirru-script": "0.0.2-2",
-    "gulp-rename": "^1.2.0",
+    "gulp-cirru-script": "0.5.2-1",
+    "gutil": "^1.6.4",
     "react": "0.13.x",
     "react-hot-loader": "^1.2.3",
     "rsyncwrapper": "^0.4.2",
+    "run-sequence": "^1.1.5",
+    "stir-template": "^0.1.6",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
-    "webpack": "^1.5.3",
-    "webpack-dev-server": "^1.7.0"
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "gaze": "^0.5.1",
     "jsondiffpatch": "^0.1.31",
     "lodash": "^3.5.0",
-    "ws": "^0.7.1"
+    "ws": "^1.0.1"
   },
   "repository": {
     "type": "git",

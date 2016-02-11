@@ -1,16 +1,17 @@
 
-= iconFolded :►
-= iconExpanded :▼
+var
+  iconFolded :►
+  iconExpanded :▼
 
-= React $ require :react
+  React $ require :react
 
-= div $ React.createFactory :div
-= span $ React.createFactory :span
-= File $ React.createFactory $ require :./file
+  div $ React.createFactory :div
+  span $ React.createFactory :span
+  File $ React.createFactory $ require :./file
 
-= T React.PropTypes
+  T React.PropTypes
 
-= Editor $ React.createClass $ object
+var Editor $ React.createClass $ object
   :displayName :folder
 
   :propTypes $ object
@@ -31,12 +32,12 @@
     @props.onSelect data
 
   :renderChildren $ \ ()
-    @props.data.children.map $ \= (child index)
-      if (is child.type :file)
-        do $ File $ object (:data child) (:onClick @onFileClick)
+    @props.data.children.map $ \\ (child index)
+      cond (is child.type :file)
+        File $ object (:data child) (:onClick @onFileClick)
           :key index
           :open @props.open
-        do $ FolderFactory $ object (:data child) (:onSelect @onFileClick)
+        FolderFactory $ object (:data child) (:onSelect @onFileClick)
           :key index
           :open @props.open
 
@@ -50,12 +51,13 @@
           , @props.data.name
         span
           object (:className :icon)
-          if @state.isExpanded iconExpanded iconFolded
-      if @state.isExpanded
+          cond @state.isExpanded iconExpanded iconFolded
+      cond @state.isExpanded
         div
           object (:className :children)
           @renderChildren
         , null
 
-= FolderFactory $ React.createFactory Editor
+var FolderFactory $ React.createFactory Editor
+
 = module.exports Editor
