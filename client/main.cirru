@@ -3,6 +3,7 @@ var
   React $ require :react
 
 require :cirru-editor/style/layout.css
+require :../style/layout.css
 
 var
   store $ require :./store
@@ -16,7 +17,6 @@ var
 
 = ws.onmessage $ \ (msg)
   var action $ JSON.parse msg.data
-  console.log ":on message" action
   switch action.type
     :sync
       console.log :sync action.data

@@ -36,6 +36,7 @@ var
     store.dispatcher.removeListener :change @setData
 
   :setData $ \ ()
+
     @setState $ object
       :code $ store.getCode
       :tree $ store.getTree
@@ -47,7 +48,7 @@ var
     and (@isCirruFile) (not @state.fallback)
 
   :onSelect $ \ (data)
-    = info $ . @state.code data.fullpath
+    var info $ . @state.code data.fullpath
     @setState $ object
       :open data.fullpath
       :ast $ parser.pare info.text
@@ -90,10 +91,11 @@ var
     return
 
   :renderHeader $ \ ()
-    = info $ . @state.code @state.open
-    if (@isCirruMode)
-      do $ = formatedCode $ writer.render @state.ast
-      do $ = formatedCode @state.text
+    var
+      info $ . @state.code @state.open
+      formatedCode $ cond (@isCirruMode)
+        writer.render @state.ast
+        , @state.text
 
     div
       object (:className :header)

@@ -21,7 +21,7 @@ var store $ object
 = exports.set $ \ (data)
   var
     delta $ diffpatch.diff store data
-    store $ _.cloneDeep data
+  = store $ _.cloneDeep data
   dispatcher.emit :change $ object
     :type :patch
     :delta delta

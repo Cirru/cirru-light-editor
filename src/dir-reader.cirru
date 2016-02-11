@@ -19,9 +19,10 @@ var getSize $ \ (name)
 var getPathInfo $ \ (filepath code)
   if (isDir filepath)
     do
-      = list $ readDir filepath
-      = children $ list.map $ \ (child)
-        = childpath $ path.join filepath child
+      var
+        list $ readDir filepath
+      var children $ list.map $ \ (child)
+        var childpath $ path.join filepath child
         getPathInfo childpath code
       return $ object
         :type :dir

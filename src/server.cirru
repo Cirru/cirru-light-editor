@@ -8,7 +8,7 @@ var
   store $ require :./store
   writer $ require :./writer
 
-  entry $ . process.argv 2
+  entry $ . process.argv 3
 
 if (not $ ? entry)
   do
@@ -27,7 +27,8 @@ wss.on :connection $ \ (ws)
     :data (store.get)
 
   ws.on :message $ \ (message)
-    = action $ JSON.parse message
+    var
+      action $ JSON.parse message
     switch action.action
       :update
         writer.write action.file action.content
@@ -38,7 +39,6 @@ wss.on :connection $ \ (ws)
 store.set $ dirReader.getInfo entry
 
 watcher.on :all $ \ (event filepath)
-  console.log filepath
   store.set $ dirReader.getInfo entry
 
 store.dispatcher.on :change $ \ (delta)

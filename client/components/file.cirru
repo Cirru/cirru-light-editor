@@ -18,7 +18,7 @@ var
     @props.onClick @props.data
 
   :render $ \ ()
-    = className $ classnames $ object
+    var className $ classnames $ object
       :file true
       :line true
       :is-open $ is @props.open @props.data.fullpath
