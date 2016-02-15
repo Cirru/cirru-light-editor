@@ -2,48 +2,24 @@
 var
   fs $ require :fs
   path $ require :path
+  Immutable $ require :immutable
 
-var isDir $ \ (name)
-  var
-    stat $ fs.statSync name
-  stat.isDirectory
-
-var readDir $ \ (name)
-  fs.readdirSync name
-
-var getSize $ \ (name)
-  var
-    stat $ fs.statSync name
-  return stat.size
-
-var getPathInfo $ \ (filepath code)
-  if (isDir filepath)
-    do
+  getPaths $ \ (filepath)
+    var
+      children $ Immutable.fromJS $ fs.readdirSync filepath
+    children.flatMap $ \ (name)
       var
-        list $ readDir filepath
-      var children $ list.map $ \ (child)
-        var childpath $ path.join filepath child
-        getPathInfo childpath code
-      return $ object
-        :type :dir
-        :fullpath filepath
-        :children children
-        :name $ path.basename filepath
-    do
-      = (. code filepath) $ object
-        :text $ fs.readFileSync filepath :utf8
-        :extname $ path.extname filepath
-        :size $ getSize filepath
-      var info $ object
-        :type :file
-        :fullpath filepath
-        :name $ path.basename filepath
-      return info
-  return
+        childPath $ path.join filepath name
+      cond
+        ... fs (statSync childPath) (isDirectory)
+        getPaths childPath
+        Immutable.fromJS $ [] childPath
 
-= exports.getInfo $ \ (name)
+= exports.getInfo $ \ (currentPath)
   var
-    code $ object
-    info $ getPathInfo name code
-
-  object (:code code) (:tree info)
+    allPaths $ getPaths currentPath (Immutable.List)
+  allPaths.map $ \ (filepath)
+    Immutable.fromJS $ {}
+      :filepath filepath
+      :extname $ path.extname filepath
+      :text $ fs.readFileSync filepath :utf8

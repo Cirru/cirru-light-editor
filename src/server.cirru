@@ -1,12 +1,8 @@
 
 var
   WebSocketServer $ require :ws
-  gaze $ require :gaze
   path $ require :path
   dirReader $ require :./dir-reader
-
-  store $ require :./store
-  writer $ require :./writer
 
   entry $ . process.argv 3
 
@@ -15,8 +11,6 @@ if (not $ ? entry)
     console.log ":please specify a folder"
     process.exit 1
 
-var watcher $ new gaze.Gaze $ path.join entry :** :*
-
 var wss $ new WebSocketServer.Server $ object
   :port 7001
 
@@ -24,25 +18,20 @@ wss.on :connection $ \ (ws)
 
   ws.send $ JSON.stringify $ object
     :type :sync
-    :data (store.get)
+    :data $ JSON.stringify $ dirReader.getInfo entry
 
   ws.on :message $ \ (message)
     var
       action $ JSON.parse message
     switch action.action
       :update
-        writer.write action.file action.content
+        fs.writeFileSync action.file action.content
+      :refresh
+        ws.send $ JSON.stringify $ {}
+          :type :sync
+          :data $ JSON.stringify $ dirReader.getInfo entry
     return
 
   ws.on :close $ \ ()
-
-store.set $ dirReader.getInfo entry
-
-watcher.on :all $ \ (event filepath)
-  store.set $ dirReader.getInfo entry
-
-store.dispatcher.on :change $ \ (delta)
-  wss.clients.forEach $ \ (ws)
-    ws.send $ JSON.stringify delta
 
 console.log ":started server at 7001"
