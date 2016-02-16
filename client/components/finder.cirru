@@ -12,6 +12,7 @@ var
   :propTypes $ {}
     :collection $ . (React.PropTypes.instanceOf Immutable.List) :isRequired
     :onFileSelect React.PropTypes.func.isRequired
+    :openFilepath React.PropTypes.string
 
   :getInitialState $ \ ()
     {}
@@ -40,7 +41,11 @@ var
         var
           onSelect $ \\ ()
             @onSelect file
-        div ({} :style @styleFile :key (file.get :filepath) :onClick onSelect)
+        div
+          {}
+            :style $ @styleFile $ is @props.openFilepath (file.get :filepath)
+            :key (file.get :filepath)
+            :onClick onSelect
           file.get :filepath
 
   :render $ \ ()
@@ -70,13 +75,16 @@ var
     :color :white
     :background $ hsl 0 0 100 0.2
 
-  :styleFile $ {}
+  :styleFile $ \ (isSelected) $ {}
     :fontSize 14
     :lineHeight :40px
     :padding ":0 10px"
     :borderTop $ + ":1px solid " (hsl 0 0 30)
     :cursor :pointer
     :fontFamily ":Menlo, Courier, monospace"
+    :backgroundColor $ cond isSelected
+      hsl 0 0 20
+      , :transparent
 
   :styleList $ {}
     :flex 1

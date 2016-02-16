@@ -38,7 +38,7 @@ wss.on :connection $ \ (ws)
               file.set :text actionData.text
               , file
           delta $ immutablediff collectionAtom newCollectionAtom
-        = newCollectionAtom collectionAtom
+        = collectionAtom newCollectionAtom
         ws.send $ JSON.stringify $ {}
           :type :patch
           :data delta

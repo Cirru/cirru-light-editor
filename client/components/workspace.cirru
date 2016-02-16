@@ -30,7 +30,7 @@ var
   :onSaveCirru $ \ (tree)
     var
       text $ cirruWriter.render (tree.toJS)
-    props.send :update-file $ {}
+    @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
 
@@ -63,6 +63,7 @@ var
   :renderSidebar $ \ ()
     div ({} :style @styleSidebar)
       Finder $ {} :collection @props.collection :onFileSelect @onFileSelect
+        , :openFilepath @state.openFilepath
 
   :render $ \ ()
     div ({} :style @styleRoot)
