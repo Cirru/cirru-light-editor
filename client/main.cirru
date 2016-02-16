@@ -1,6 +1,5 @@
 
 require :cirru-editor/style/layout.css
-require :../style/layout.css
 
 var
   React $ require :react
@@ -11,7 +10,7 @@ var
   updater $ require :./updater
   App $ React.createFactory $ require :./components/app
 
-  ws $ new WebSocket $ + :ws://localhost:7001
+  ws $ new WebSocket $ + :ws://repo:7001
 
   render $ \ (core)
     console.log (... core (get :store) (toJS))
@@ -45,3 +44,8 @@ var send $ \ (data)
     :patch
       recorder.dispatch :collection/patch action.data
   return
+
+if module.hot $ do
+  module.hot.accept :./components/app $ \ ()
+    = App $ React.createFactory $ require :./components/app
+    recorder.request render

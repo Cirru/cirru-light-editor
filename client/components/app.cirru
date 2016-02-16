@@ -1,17 +1,13 @@
 
 var
   React $ require :react
-  parser $ require :cirru-parser
-  writer $ require :cirru-writer
   Immutable $ require :immutable
 
   Devtools $ React.createFactory $ require :actions-recorder/lib/devtools
-  Editor $ React.createFactory $ require :cirru-editor
-  Folder $ React.createFactory $ require :./folder
+  Workspace $ React.createFactory $ require :./workspace
+  Connecting $ React.createFactory $ require :./connecting
 
-  div $ React.createFactory :div
-  span $ React.createFactory :span
-  textarea $ React.createFactory :textarea
+  ({}~ div) React.DOM
 
 = module.exports $ React.createClass $ object
   :displayName :App
@@ -21,8 +17,6 @@ var
 
   :getInitialState $ \ ()
     {}
-      :code ":"
-      :open :
       :path $ Immutable.List
       :showDevTools false
 
@@ -32,39 +26,10 @@ var
   :componentWillUnmount $ \ ()
     window.removeEventListener :keydown @onWindowKeydown
 
-  :isCirruFile $ \ ()
-    ? $ @state.open.match "/\\.cirru$"
-
-  :isCirruMode $ \ ()
-    and (@isCirruFile)
-
-  :onSelect $ \ (data)
-    var info $ . @state.code data.fullpath
-    @setState $ object
-      :open data.fullpath
-      :ast $ parser.pare info.text
-      :text info.text
-
-  :onSave $ \ ()
-    if (@isCirruMode)
-      do $ actions.update @state.open $ writer.render @state.ast
-      do $ actions.update @state.open @state.text
-    return
-
-  :onClose $ \ ()
-    @setState $ object
-      :open :
-
-  :onChange $ \ (ast focus)
-    @setState $ object (:ast ast)
-      :focus focus
-      :text $ writer.render ast
-
   :onPathChange $ \ (path)
     @setState $ {} :path path
 
   :onWindowKeydown $ \ (event)
-    console.log event
     if
       and event.metaKey event.shiftKey
         is event.key :a
@@ -72,28 +37,8 @@ var
         @setState $ {} :showDevTools $ not @state.showDevTools
     return
 
-  :renderHeader $ \ ()
-    var
-      info $ . @state.code @state.open
-      formatedCode $ cond (@isCirruMode)
-        writer.render @state.ast
-        , @state.text
-
-    div
-      object (:className :header)
-      div
-        object (:className :name)
-        , @state.open
-      cond (isnt formatedCode info.text)
-        div
-          object (:className :button) (:onClick @onSave)
-          , :save
-      div
-        object (:className :button) (:onClick @onClose)
-        , :close
-
   :renderLayer $ \ ()
-    div ({} :className :devtools-layer)
+    div ({} :style @styleLayer)
       Devtools $ {}
         :core @props.core
         :language :en
@@ -103,20 +48,20 @@ var
         :onPathChange @onPathChange
 
   :render $ \ ()
+    var
+      store $ @props.core.get :store
+      isConnected $ store.getIn $ [] :device :isConnected
 
     div ({} :className :app)
-      cond (and @state.code @state.open)
-        div ({} :className :workspace)
-          cond (@isCirruMode)
-            Editor $ {} :key @state.open :ast @state.ast :focus @state.focus :onChange @onChange
-
-        div ({} :className :workspace)
-
-      div ({} :className :sidebar)
-        cond (and @state.code @state.open)
-          @renderHeader
-        cond @state.tree
-          Folder $ {} :data @state.tree :onSelect @onSelect :open @state.open
-          div ({} :className :hint) ":Wanting for ws://localhost:7001"
+      cond isConnected
+        Workspace $ {} :collection (store.get :collection)
+        Connecting
       cond @state.showDevTools
         @renderLayer
+
+  :styleLayer $ {}
+    :position :absolute
+    :top 0
+    :left 0
+    :width :100%
+    :height :100%
