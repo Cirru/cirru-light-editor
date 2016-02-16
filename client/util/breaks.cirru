@@ -4,7 +4,7 @@ var getHeadSpace $ \ (text head)
     getHeadSpace (text.substr 1) (+ head ": ")
     , head
 
-= module.manualBreaks $ \ (input)
+= exports.manualBreaks $ \ (input)
   var
     start input.selectionStart
     code input.value
