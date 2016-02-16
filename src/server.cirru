@@ -1,7 +1,10 @@
 
 var
+  fs $ require :fs
   WebSocketServer $ require :ws
   path $ require :path
+  immutablediff $ require :immutablediff
+
   dirReader $ require :./dir-reader
 
   entry $ . process.argv 3
@@ -11,25 +14,38 @@ if (not $ ? entry)
     console.log ":please specify a folder"
     process.exit 1
 
-var wss $ new WebSocketServer.Server $ object
-  :port 7001
+var
+  wss $ new WebSocketServer.Server $ {} :port 7001
+  collectionAtom $ dirReader.getInfo entry
 
 wss.on :connection $ \ (ws)
 
-  ws.send $ JSON.stringify $ object
+  ws.send $ JSON.stringify $ {}
     :type :sync
-    :data $ dirReader.getInfo entry
+    :data collectionAtom
 
   ws.on :message $ \ (message)
     var
       action $ JSON.parse message
-    switch action.action
-      :update
-        fs.writeFileSync action.file action.content
+      actionData $ . action 1
+    switch (. action 0)
+      :update-file
+        fs.writeFileSync actionData.file actionData.text
+        var
+          newCollectionAtom $ collectionAtom.map $ \ (file)
+            cond
+              is (file.get :filepath) actionData.file
+              file.set :text actionData.text
+              , file
+          delta $ immutablediff collectionAtom newCollectionAtom
+        = newCollectionAtom collectionAtom
+        ws.send $ JSON.stringify $ {}
+          :type :patch
+          :data delta
       :refresh
         ws.send $ JSON.stringify $ {}
           :type :sync
-          :data $ dirReader.getInfo entry
+          :data collectionAtom
     return
 
   ws.on :close $ \ ()

@@ -4,6 +4,7 @@ var
   React $ require :react
   Immutable $ require :immutable
   cirruParser $ require :cirru-parser
+  cirruWriter $ require :cirru-writer
 
   Finder $ React.createFactory $ require :./finder
   TextEditor $ React.createFactory $ require :./text-editor
@@ -16,40 +17,46 @@ var
 
   :propTypes $ {}
     :collection $ . (React.PropTypes.instanceOf Immutable.List) :isRequired
+    :send React.PropTypes.func.isRequired
 
   :getInitialState $ \ ()
     {}
       :openFilepath null
-      :tree (Immutable.List)
-      :text :
 
   :onFileSelect $ \ (filepath)
-    var
-      file $ @props.collection.find $ \\ (file)
-        is (file.get :filepath) filepath
     @setState $ {}
       :openFilepath filepath
-      :tree $ cond (? file)
-        Immutable.fromJS $ cirruParser.pare (file.get :text)
-      :text $ file.get :text
 
   :onSaveCirru $ \ (tree)
-    console.log :save tree
+    var
+      text $ cirruWriter.render (tree.toJS)
+    props.send :update-file $ {}
+      :file @state.openFilepath
+      :text text
 
   :onSaveText $ \ (text)
-    console.log :text text
+    @props.send :update-file $ {}
+      :file @state.openFilepath
+      :text text
 
   :renderEmpty $ \ ()
     div ({} :style @styleEmpty)
       , ":No file is Selected"
 
   :renderEditor $ \ ()
+    var
+      file $ @props.collection.find $ \\ (file)
+        is (file.get :filepath) @state.openFilepath
+
     div ({} :style @styleEditor)
       cond (? @state.openFilepath)
         cond (? $ @state.openFilepath.match /\.cirru$)
-          CirruEditor $ {} :tree @state.tree :onSave @onSaveCirru
-            , :key @state.openFilepath :height window.innerHeight
-          TextEditor $ {} :text @state.text :onSave @onSaveText
+          CirruEditor $ {}
+            :tree $ Immutable.fromJS $ cirruParser.pare (file.get :text)
+            :onSave @onSaveCirru
+            :key @state.openFilepath
+            :height window.innerHeight
+          TextEditor $ {} :text (file.get :text) :onSave @onSaveText
             , :key @state.openFilepath
         @renderEmpty
 

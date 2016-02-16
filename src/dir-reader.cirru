@@ -9,7 +9,11 @@ var
   getPaths $ \ (filepath)
     var
       children $ Immutable.fromJS $ fs.readdirSync filepath
-    children.flatMap $ \ (name)
+      filteredChildren $ children.filter $ \ (childPath)
+        not $ in
+          [] :node_modules :.git
+          , childPath
+    filteredChildren.flatMap $ \ (name)
       var
         childPath $ path.join filepath name
       cond

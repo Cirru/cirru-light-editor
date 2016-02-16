@@ -34,7 +34,7 @@ var
     div ({} :style @styleRoot)
       div ({} :style @styleToolbar)
         cond (isnt @props.text @state.text)
-          div ({} :style @styleButton :onClick @onSave) ":saves"
+          div ({} :style @styleButton :onClick @onSave) ":save"
       textarea $ {} :value @state.text :onChange @onTextChange
         , :onKeyDown @onKeydown :style @styleEditor
 
@@ -50,6 +50,7 @@ var
     :display :flex
     :flexDirection :row
     :alignItems :center
+    :flexShrink 0
 
   :styleEditor $ {}
     :flex 1
@@ -59,6 +60,7 @@ var
     :outline :none
     :fontFamily ":Menlo, Courier, monospace"
     :fontSize 14
+    :lineHeight :24px
 
   :styleButton $ {}
     :backgroundColor $ hsl 0 50 60

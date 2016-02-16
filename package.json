@@ -27,6 +27,7 @@
     "gulp": "^3.8.11",
     "gulp-cirru-script": "0.5.2-1",
     "gutil": "^1.6.4",
+    "immutablepatch": "^0.2.2",
     "react": "0.13.x",
     "rsyncwrapper": "^0.4.2",
     "run-sequence": "^1.1.5",
@@ -39,6 +40,7 @@
   "dependencies": {
     "gaze": "^0.5.1",
     "immutable": "^3.7.6",
+    "immutablediff": "^0.4.2",
     "jsondiffpatch": "^0.1.31",
     "lodash": "^3.5.0",
     "react-dom": "^0.14.7",

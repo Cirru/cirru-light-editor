@@ -12,10 +12,13 @@ var
 
   ws $ new WebSocket $ + :ws://repo:7001
 
+  send $ \ (type data)
+    ws.send $ JSON.stringify $ [] type data
+
   render $ \ (core)
     console.log (... core (get :store) (toJS))
     ReactDOM.render
-      App $ {} :core core
+      App $ {} :core core :send send
       document.querySelector :#app
 
 recorder.setup $ {}
@@ -24,9 +27,6 @@ recorder.setup $ {}
 
 recorder.request render
 recorder.subscribe render
-
-var send $ \ (data)
-  ws.send $ JSON.stringify data
 
 = ws.onopen $ \ ()
   recorder.dispatch :device/connect

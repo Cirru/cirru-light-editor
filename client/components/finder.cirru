@@ -15,7 +15,7 @@ var
 
   :getInitialState $ \ ()
     {}
-      :text :text
+      :text :
 
   :onChange $ \ (event)
     @setState $ {} :text event.target.value

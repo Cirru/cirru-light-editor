@@ -14,6 +14,7 @@ var
 
   :propTypes $ {}
     :core $ . (React.PropTypes.instanceOf Immutable.Map) :isRequired
+    :send React.PropTypes.func.isRequired
 
   :getInitialState $ \ ()
     {}
@@ -54,7 +55,7 @@ var
 
     div ({} :className :app)
       cond isConnected
-        Workspace $ {} :collection (store.get :collection)
+        Workspace $ {} :collection (store.get :collection) :send @props.send
         Connecting
       cond @state.showDevTools
         @renderLayer
