@@ -5,17 +5,16 @@ var
   writer $ require :cirru-writer
   Immutable $ require :immutable
 
-  mixinBreaks $ require :../mixins/breaks
-
+  Devtools $ React.createFactory $ require :actions-recorder/lib/devtools
   Editor $ React.createFactory $ require :cirru-editor
   Folder $ React.createFactory $ require :./folder
+
   div $ React.createFactory :div
   span $ React.createFactory :span
   textarea $ React.createFactory :textarea
 
 = module.exports $ React.createClass $ object
   :displayName :App
-  :mixins $ array mixinBreaks
 
   :propTypes $ {}
     :core $ . (React.PropTypes.instanceOf Immutable.Map) :isRequired
@@ -24,12 +23,20 @@ var
     {}
       :code ":"
       :open :
+      :path $ Immutable.List
+      :showDevTools false
+
+  :componentDidMount $ \ ()
+    window.addEventListener :keydown @onWindowKeydown
+
+  :componentWillUnmount $ \ ()
+    window.removeEventListener :keydown @onWindowKeydown
 
   :isCirruFile $ \ ()
     ? $ @state.open.match "/\\.cirru$"
 
   :isCirruMode $ \ ()
-    and (@isCirruFile) (not @state.fallback)
+    and (@isCirruFile)
 
   :onSelect $ \ (data)
     var info $ . @state.code data.fullpath
@@ -53,25 +60,16 @@ var
       :focus focus
       :text $ writer.render ast
 
-  :onTextChange $ \ (event)
-    if (@isCirruFile)
-      do $ @setState $ object
-        :text event.target.value
-        :ast $ parser.pare event.target.value
-      do $ @setState $ object
-        :text event.target.value
-    return
+  :onPathChange $ \ (path)
+    @setState $ {} :path path
 
-  :onFallbackToggle $ \ ()
-    @setState $ object
-      :fallback $ not @state.fallback
-
-  :onTextKeydown $ \ (event)
-    if (is event.keyCode 13)
+  :onWindowKeydown $ \ (event)
+    console.log event
+    if
+      and event.metaKey event.shiftKey
+        is event.key :a
       do
-        event.preventDefault
-        @manualBreaks event.target
-        @onTextChange event
+        @setState $ {} :showDevTools $ not @state.showDevTools
     return
 
   :renderHeader $ \ ()
@@ -90,12 +88,19 @@ var
         div
           object (:className :button) (:onClick @onSave)
           , :save
-      cond (@isCirruFile) $ div
-        object (:className :button) (:onClick @onFallbackToggle)
-        + :text: (cond @state.fallback :on :off)
       div
         object (:className :button) (:onClick @onClose)
         , :close
+
+  :renderLayer $ \ ()
+    div ({} :className :devtools-layer)
+      Devtools $ {}
+        :core @props.core
+        :language :en
+        :width window.innerWidth
+        :height window.innerHeight
+        :path @state.path
+        :onPathChange @onPathChange
 
   :render $ \ ()
 
@@ -104,7 +109,7 @@ var
         div ({} :className :workspace)
           cond (@isCirruMode)
             Editor $ {} :key @state.open :ast @state.ast :focus @state.focus :onChange @onChange
-            textarea $ {} :key @state.open :value @state.text :onChange @onTextChange :onKeyDown @onTextKeydown
+
         div ({} :className :workspace)
 
       div ({} :className :sidebar)
@@ -113,3 +118,5 @@ var
         cond @state.tree
           Folder $ {} :data @state.tree :onSelect @onSelect :open @state.open
           div ({} :className :hint) ":Wanting for ws://localhost:7001"
+      cond @state.showDevTools
+        @renderLayer
