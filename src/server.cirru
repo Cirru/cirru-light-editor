@@ -18,7 +18,7 @@ wss.on :connection $ \ (ws)
 
   ws.send $ JSON.stringify $ object
     :type :sync
-    :data $ JSON.stringify $ dirReader.getInfo entry
+    :data $ dirReader.getInfo entry
 
   ws.on :message $ \ (message)
     var
@@ -29,7 +29,7 @@ wss.on :connection $ \ (ws)
       :refresh
         ws.send $ JSON.stringify $ {}
           :type :sync
-          :data $ JSON.stringify $ dirReader.getInfo entry
+          :data $ dirReader.getInfo entry
     return
 
   ws.on :close $ \ ()

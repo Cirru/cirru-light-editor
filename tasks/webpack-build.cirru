@@ -11,7 +11,7 @@ var
   {}
     :entry $ {}
       :main $ [] :./client/main
-      :vendor $ []
+      :vendor $ [] :react :immutable
 
     :output $ {}
       :path $ path.join info.__dirname :build/

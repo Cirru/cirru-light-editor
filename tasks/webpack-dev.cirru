@@ -13,6 +13,7 @@ var
       :vendor $ []
         + :webpack-dev-server/client? config.host :: config.port
         , :webpack/hot/dev-server
+        , :react :immutable
       :main $ [] :./client/main
 
     :output $ {}

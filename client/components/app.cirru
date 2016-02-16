@@ -3,9 +3,7 @@ var
   React $ require :react
   parser $ require :cirru-parser
   writer $ require :cirru-writer
-
-  store $ require :../store
-  actions $ require :../actions
+  Immutable $ require :immutable
 
   mixinBreaks $ require :../mixins/breaks
 
@@ -19,27 +17,13 @@ var
   :displayName :App
   :mixins $ array mixinBreaks
 
+  :propTypes $ {}
+    :core $ . (React.PropTypes.instanceOf Immutable.Map) :isRequired
+
   :getInitialState $ \ ()
-    object
-      :ast $ array
-      :focus $ array
-      :code $ store.getCode
-      :tree $ store.getTree
+    {}
+      :code ":"
       :open :
-      :text :
-      :fallback false
-
-  :componentDidMount $ \ ()
-    store.dispatcher.addListener :change @setData
-
-  :componentWillUnmount $ \ ()
-    store.dispatcher.removeListener :change @setData
-
-  :setData $ \ ()
-
-    @setState $ object
-      :code $ store.getCode
-      :tree $ store.getTree
 
   :isCirruFile $ \ ()
     ? $ @state.open.match "/\\.cirru$"
@@ -115,31 +99,17 @@ var
 
   :render $ \ ()
 
-    div (object (:className :app))
+    div ({} :className :app)
       cond (and @state.code @state.open)
-        div
-          object (:className :workspace)
+        div ({} :className :workspace)
           cond (@isCirruMode)
-            Editor $ object
-              :key @state.open
-              :ast @state.ast
-              :focus @state.focus
-              :onChange @onChange
-            textarea $ object
-              :key @state.open
-              :value @state.text
-              :onChange @onTextChange
-              :onKeyDown @onTextKeydown
-        div
-          object (:className :workspace)
+            Editor $ {} :key @state.open :ast @state.ast :focus @state.focus :onChange @onChange
+            textarea $ {} :key @state.open :value @state.text :onChange @onTextChange :onKeyDown @onTextKeydown
+        div ({} :className :workspace)
 
-      div
-        object (:className :sidebar)
+      div ({} :className :sidebar)
         cond (and @state.code @state.open)
           @renderHeader
         cond @state.tree
-          Folder $ object (:data @state.tree) (:onSelect @onSelect)
-            :open @state.open
-          div
-            object (:className :hint)
-            , ":Wanting for ws://localhost:7001"
+          Folder $ {} :data @state.tree :onSelect @onSelect :open @state.open
+          div ({} :className :hint) ":Wanting for ws://localhost:7001"

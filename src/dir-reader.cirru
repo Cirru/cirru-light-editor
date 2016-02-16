@@ -4,6 +4,8 @@ var
   path $ require :path
   Immutable $ require :immutable
 
+  bind $ \ (v k) (k v)
+
   getPaths $ \ (filepath)
     var
       children $ Immutable.fromJS $ fs.readdirSync filepath
@@ -23,3 +25,7 @@ var
       :filepath filepath
       :extname $ path.extname filepath
       :text $ fs.readFileSync filepath :utf8
+      :mtime $ bind
+        . (fs.statSync filepath) :mtime
+        \ (modifiedTime)
+          ... (new Date modifiedTime) (valueOf)

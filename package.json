@@ -12,6 +12,7 @@
     "workflow"
   ],
   "devDependencies": {
+    "actions-recorder": "^1.6.3",
     "autoprefixer-loader": "^3.2.0",
     "cirru-editor": "^0.5.5",
     "cirru-parser": "^0.10.2",
@@ -27,7 +28,6 @@
     "gulp-cirru-script": "0.5.2-1",
     "gutil": "^1.6.4",
     "react": "0.13.x",
-    "react-hot-loader": "^1.2.3",
     "rsyncwrapper": "^0.4.2",
     "run-sequence": "^1.1.5",
     "stir-template": "^0.1.6",
@@ -41,6 +41,7 @@
     "immutable": "^3.7.6",
     "jsondiffpatch": "^0.1.31",
     "lodash": "^3.5.0",
+    "react-dom": "^0.14.7",
     "ws": "^1.0.1"
   },
   "repository": {
