@@ -16,7 +16,10 @@ if (not $ ? entry)
 
 var
   wss $ new WebSocketServer.Server $ {} :port 7001
-  collectionAtom $ dirReader.getInfo entry
+  collectionAtom $ dirReader.getInfo $ cond
+    is (. entry 0) :/
+    , entry
+    path.join process.env.PWD entry
 
 wss.on :connection $ \ (ws)
 

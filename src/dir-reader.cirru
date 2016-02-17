@@ -27,6 +27,7 @@ var
   allPaths.map $ \ (filepath)
     Immutable.fromJS $ {}
       :filepath filepath
+      :baseDirectory currentPath
       :extname $ path.extname filepath
       :text $ fs.readFileSync filepath :utf8
       :mtime $ bind

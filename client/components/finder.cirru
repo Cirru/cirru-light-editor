@@ -46,7 +46,8 @@ var
             :style $ @styleFile $ is @props.openFilepath (file.get :filepath)
             :key (file.get :filepath)
             :onClick onSelect
-          file.get :filepath
+          ... (file.get :filepath)
+            replace (file.get :baseDirectory) :
 
   :render $ \ ()
     div ({} :style @styleRoot)
@@ -85,6 +86,9 @@ var
     :backgroundColor $ cond isSelected
       hsl 0 0 20
       , :transparent
+    :whiteSpace :nowrap
+    :overflowX :hidden
+    :textOverflow :ellipsis
 
   :styleList $ {}
     :flex 1
