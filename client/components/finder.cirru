@@ -42,7 +42,6 @@ var
     var
       files $ @filterFiles
       current $ files.get @state.selectedIndex
-    console.log :selectCurrent current
     if (? current) $ do
       @onSelect current
     return

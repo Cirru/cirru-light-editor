@@ -67,14 +67,17 @@ var
 
     div ({} :style @styleEditor)
       cond (? @state.openFilepath)
-        cond (? $ @state.openFilepath.match /\.cirru$)
-          CirruEditor $ {}
-            :tree $ Immutable.fromJS $ cirruParser.pare (file.get :text)
-            :onSave @onSaveCirru
-            :key @state.openFilepath
-            :height window.innerHeight
-          TextEditor $ {} :text (file.get :text) :onSave @onSaveText
-            , :key @state.openFilepath
+        div ({} :style @styleContainer)
+          div ({} :style @styleName) @state.openFilepath
+          div ({} :style @styleBox)
+            cond (? $ @state.openFilepath.match /\.cirru$)
+              CirruEditor $ {}
+                :tree $ Immutable.fromJS $ cirruParser.pare (file.get :text)
+                :onSave @onSaveCirru
+                :key @state.openFilepath
+                :height (- window.innerHeight 40)
+              TextEditor $ {} :text (file.get :text) :onSave @onSaveText
+                , :key @state.openFilepath
         @renderEmpty
 
   :renderOverlay $ \ ()
@@ -131,3 +134,20 @@ var
     :flexDirection :row
     :justifyContent :center
     :alignItems :center
+
+  :styleName $ {}
+    :height 40
+    :color $ hsl 0 0 80
+    :fontFamily ":Menlo, Courier, monospace"
+    :fontSize 14
+    :lineHeight :40px
+    :padding ":0 8px"
+
+  :styleContainer $ {}
+    :display :flex
+    :flexDirection :column
+
+  :styleBox $ {}
+    :flex 1
+    :position :relative
+    :height $ - window.innerHeight 40
