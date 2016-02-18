@@ -22,10 +22,27 @@ var
   :getInitialState $ \ ()
     {}
       :openFilepath null
+      :mode :finder
+
+  :componentDidMount $ \ ()
+    window.addEventListener :keydown @onWindowKeydown
+
+  :componentWillUnmount $ \ ()
+    window.addEventListener :keydown @onWindowKeydown
+
+  :onWindowKeydown $ \ (event)
+    if
+      and event.metaKey (not event.shiftKey)
+        is event.key :p
+      do
+        event.preventDefault
+        @setState $ {} :mode :finder
+    return
 
   :onFileSelect $ \ (filepath)
     @setState $ {}
       :openFilepath filepath
+      :mode :basic
 
   :onSaveCirru $ \ (tree)
     var
@@ -60,15 +77,21 @@ var
             , :key @state.openFilepath
         @renderEmpty
 
-  :renderSidebar $ \ ()
-    div ({} :style @styleSidebar)
-      Finder $ {} :collection @props.collection :onFileSelect @onFileSelect
-        , :openFilepath @state.openFilepath
+  :renderOverlay $ \ ()
+    var
+      self @
+    div ({} :style @styleOverlay)
+      case self.state.mode
+        :finder
+          Finder $ {} :collection self.props.collection :onFileSelect self.onFileSelect
+            , :openFilepath self.state.openFilepath
+        :commander :nothing
 
   :render $ \ ()
     div ({} :style @styleRoot)
       @renderEditor
-      @renderSidebar
+      cond (isnt @state.mode :basic)
+        @renderOverlay
 
   :styleRoot $ {}
     :position :absolute
@@ -76,22 +99,28 @@ var
     :left 0
     :width :100%
     :height :100%
+
+  :styleOverlay $ {}
+    :backgroundColor $ hsl 0 80 10 0.3
+    :width 400
+    :position :absolute
+    :zIndex 10
+    :left 0
+    :top 0
+    :width :100%
+    :height :100%
     :display :flex
     :flexDirection :row
-    :alignItems :stretch
     :justifyContent :center
-    :fontFamily ":Verdana"
-
-  :styleSidebar $ {}
-    :backgroundColor $ hsl 0 80 100
-    :width 400
-    :position :relative
 
   :styleEditor $ {}
     :backgroundColor $ hsl 200 40 0
-    :flex 1
-    :position :relative
+    :position :absolute
     :color :white
+    :width :100%
+    :height :100%
+    :top 0
+    :left 0
 
   :styleEmpty $ {}
     :color :white

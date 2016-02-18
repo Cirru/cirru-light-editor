@@ -51,15 +51,14 @@ var
 
   :render $ \ ()
     div ({} :style @styleRoot)
-      input ({} :style @styleTextbox :value @state.text :onChange @onChange)
+      input ({} :style @styleTextbox :value @state.text :onChange @onChange :autoFocus true)
       div ({} :style @styleList)
         @renderList
 
   :styleRoot $ {}
     :color :white
-    :background $ hsl 0 0 0
-    :position :absolute
-    :width :100%
+    :background $ hsl 316 12 19
+    :width :80%
     :height :100%
     :display :flex
     :flexDirection :column
@@ -93,3 +92,4 @@ var
   :styleList $ {}
     :flex 1
     :overflowY :auto
+    :paddingBottom 200

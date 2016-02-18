@@ -11,7 +11,7 @@ var
       children $ Immutable.fromJS $ fs.readdirSync filepath
       filteredChildren $ children.filter $ \ (childPath)
         not $ in
-          [] :node_modules :.git
+          [] :node_modules :.git :resources
           , childPath
     filteredChildren.flatMap $ \ (name)
       var
