@@ -21,6 +21,11 @@ gulp.task :script $ \ ()
     pipe $ script $ object (:dest :../lib)
     pipe $ gulp.dest :lib
 
+gulp.task :del $ \ (cb)
+  var
+    del $ require :del
+  del ([] :build/**/*) cb
+
 gulp.task :rsync $ \ (cb)
   var
     wrapper $ require :rsyncwrapper
