@@ -14,6 +14,7 @@ var
     :collection $ . (React.PropTypes.instanceOf Immutable.List) :isRequired
     :onFileSelect React.PropTypes.func.isRequired
     :openFilepath React.PropTypes.string
+    :onClose React.PropTypes.func.isRequired
 
   :getInitialState $ \ ()
     {}
@@ -65,6 +66,9 @@ var
   :onSelect $ \ (file)
     @props.onFileSelect (file.get :filepath)
 
+  :onClose $ \ ()
+    @props.onClose
+
   :onKeyDown $ \ (event)
     switch (keycode event.keyCode)
       :down
@@ -73,6 +77,8 @@ var
         @selectPrevious
       :enter
         @selectCurrent
+      :esc
+        @onClose
     return
 
   :renderList $ \ ()

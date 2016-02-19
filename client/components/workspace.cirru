@@ -56,6 +56,9 @@ var
       :file @state.openFilepath
       :text text
 
+  :onFinderClose $ \ ()
+    @setState $ {} :mode :basic
+
   :renderEmpty $ \ ()
     div ({} :style @styleEmpty)
       , ":No file is Selected"
@@ -81,13 +84,11 @@ var
         @renderEmpty
 
   :renderOverlay $ \ ()
-    var
-      self @
-    div ({} :style @styleOverlay)
-      case self.state.mode
+    div ({} :style @styleOverlay :onClick @onFinderClose)
+      case @state.mode
         :finder
-          Finder $ {} :collection self.props.collection :onFileSelect self.onFileSelect
-            , :openFilepath self.state.openFilepath
+          Finder $ {} :collection @props.collection :onFileSelect @onFileSelect
+            , :openFilepath @state.openFilepath :onClose @onFinderClose
         :commander :nothing
 
   :render $ \ ()
