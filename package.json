@@ -14,7 +14,7 @@
   "devDependencies": {
     "actions-recorder": "^1.6.3",
     "autoprefixer-loader": "^3.2.0",
-    "cirru-editor": "^0.6.0",
+    "cirru-editor": "file:///Users/chen/repo/cirru/cirru-editor",
     "cirru-parser": "^0.10.2",
     "cirru-script": "0.5.3-0",
     "cirru-script-loader": "0.5.3-0",

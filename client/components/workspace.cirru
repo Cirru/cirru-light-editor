@@ -7,6 +7,7 @@ var
   cirruWriter $ require :cirru-writer
 
   Finder $ React.createFactory $ require :./finder
+  Commander $ React.createFactory $ require :./commander
   TextEditor $ React.createFactory $ require :./text-editor
   CirruEditor $ React.createFactory $ require :cirru-editor
 
@@ -22,21 +23,24 @@ var
   :getInitialState $ \ ()
     {}
       :openFilepath null
-      :mode :finder
+      :mode :commander
 
   :componentDidMount $ \ ()
     window.addEventListener :keydown @onWindowKeydown
 
   :componentWillUnmount $ \ ()
-    window.addEventListener :keydown @onWindowKeydown
+    window.removeEventListener :keydown @onWindowKeydown
 
   :onWindowKeydown $ \ (event)
     if
-      and event.metaKey (not event.shiftKey)
-        is event.key :p
-      do
-        event.preventDefault
-        @setState $ {} :mode :finder
+      and event.metaKey (is event.key :p)
+      do $ if (not event.shiftKey)
+        do
+          event.preventDefault
+          @setState $ {} :mode :finder
+        do
+          event.preventDefault
+          @setState $ {} :mode :commander
     return
 
   :onFileSelect $ \ (filepath)
@@ -62,6 +66,10 @@ var
   :renderEmpty $ \ ()
     div ({} :style @styleEmpty)
       , ":No file is Selected"
+
+  :onSendCommand $ \ (info)
+    @setState $ {} :mode :basic
+    @props.send :refresh
 
   :renderEditor $ \ ()
     var
@@ -89,7 +97,8 @@ var
         :finder
           Finder $ {} :collection @props.collection :onFileSelect @onFileSelect
             , :openFilepath @state.openFilepath :onClose @onFinderClose
-        :commander :nothing
+        :commander
+          Commander $ {} :onSendCommand @onSendCommand
 
   :render $ \ ()
     div ({} :style @styleRoot)

@@ -81,6 +81,9 @@ var
         @onClose
     return
 
+  :onClick $ \ (event)
+    event.stopPropagation
+
   :renderList $ \ ()
     var
       files $ @filterFiles
@@ -99,7 +102,7 @@ var
           replace (file.get :baseDirectory) :
 
   :render $ \ ()
-    div ({} :style @styleRoot)
+    div ({} :style @styleRoot :onClick @onClick)
       input
         {} :style @styleTextbox :value @state.text
           , :onChange @onChange :ref :input :onKeyDown @onKeyDown

@@ -16,10 +16,12 @@ if (not $ ? entry)
 
 var
   wss $ new WebSocketServer.Server $ {} :port 7001
-  collectionAtom $ dirReader.getInfo $ cond
-    is (. entry 0) :/
-    , entry
-    path.join process.env.PWD entry
+  refreshCollection $ \ ()
+    dirReader.getInfo $ cond
+      is (. entry 0) :/
+      , entry
+      path.join process.env.PWD entry
+  collectionAtom $ refreshCollection
 
 wss.on :connection $ \ (ws)
 
@@ -46,6 +48,7 @@ wss.on :connection $ \ (ws)
           :type :patch
           :data delta
       :refresh
+        = collectionAtom $ refreshCollection
         ws.send $ JSON.stringify $ {}
           :type :sync
           :data collectionAtom
