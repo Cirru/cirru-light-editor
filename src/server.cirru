@@ -7,7 +7,7 @@ var
 
   dirReader $ require :./dir-reader
 
-  entry $ . process.argv 3
+  entry $ . process.argv 2
 
 if (not $ ? entry)
   do

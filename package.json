@@ -1,6 +1,6 @@
 {
   "name": "cirru-light-editor",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An editor of Cirru",
   "main": "lib/file-center.js",
   "scripts": {
@@ -32,20 +32,19 @@
     "immutablepatch": "^0.2.2",
     "keycode": "^2.1.0",
     "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "rsyncwrapper": "^0.4.2",
     "run-sequence": "^1.1.5",
     "stir-template": "^0.1.6",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
+    "url-parse": "^1.0.5",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "gaze": "^0.5.1",
     "immutable": "^3.7.6",
     "immutablediff": "^0.4.2",
-    "lodash": "^3.5.0",
-    "react-dom": "^0.14.7",
     "ws": "^1.0.1"
   },
   "repository": {

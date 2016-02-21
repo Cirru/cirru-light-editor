@@ -5,12 +5,17 @@ var
   React $ require :react
   ReactDOM $ require :react-dom
   recorder $ require :actions-recorder
+  urlParse $ require :url-parse
 
   schema $ require :./schema
   updater $ require :./updater
   App $ React.createFactory $ require :./components/app
 
-  ws $ new WebSocket $ + :ws://repo:7001
+  pageUrl $ urlParse (location.toString) true
+  domain $ cond (? pageUrl.query)
+    or pageUrl.query.domain :localhost
+    , :localhost
+  ws $ new WebSocket $ + :ws:// domain ::7001
 
   send $ \ (type data)
     ws.send $ JSON.stringify $ [] type data

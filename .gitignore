@@ -1,12 +1,6 @@
 
-node_modules/
+/node_modules/
 
-index.html
-
-lib/
-
-js/
-dist/
-build/
-/demo/
-/assets.json
+/lib/
+/build/
+/tasks/assets.json

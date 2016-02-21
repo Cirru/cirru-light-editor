@@ -32,12 +32,13 @@ gulp.task :rsync $ \ (cb)
   wrapper.rsync
     object
       :ssh true
-      :src $ array :index.html :dist :style
+      :src $ array :build/
       :recursive true
       :args $ array :--verbose
-      :dest :tiye:~/repo/cirru/light-editor/
+      :dest :frp:~/repo/Cirru/cirru-light-editor/
       :deleteAll true
     \ (error stdout stderr cmd)
+      console.log error stdout stderr cmd
       if (? error)
         do $ throw error
       if (? stderr)

@@ -20,7 +20,7 @@ var
         meta $ {} :charset :utf-8
         link $ {} :rel :icon :href logoUrl
         cond (? assets.style)
-          link $ {} :rel :stylesheet :href :style/layout.css
+          link $ {} :rel :stylesheet :href assets.style
         script $ {} :src assets.vendor :defer true
         script $ {} :src assets.main :defer true
         style null ":body * {box-sizing: border-box;}"

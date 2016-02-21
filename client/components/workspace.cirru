@@ -23,7 +23,7 @@ var
   :getInitialState $ \ ()
     {}
       :openFilepath null
-      :mode :commander
+      :mode :
 
   :componentDidMount $ \ ()
     window.addEventListener :keydown @onWindowKeydown
