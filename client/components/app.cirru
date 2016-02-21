@@ -32,9 +32,10 @@ var
 
   :onWindowKeydown $ \ (event)
     if
-      and event.metaKey event.shiftKey
+      and (or event.metaKey event.ctrlKey) event.shiftKey
         is event.key :a
       do
+        event.preventDefault
         @setState $ {} :showDevTools $ not @state.showDevTools
     return
 

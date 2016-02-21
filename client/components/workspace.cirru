@@ -2,6 +2,7 @@
 var
   hsl $ require :hsl
   React $ require :react
+  keycode $ require :keycode
   Immutable $ require :immutable
   cirruParser $ require :cirru-parser
   cirruWriter $ require :cirru-writer
@@ -33,7 +34,9 @@ var
 
   :onWindowKeydown $ \ (event)
     if
-      and event.metaKey (is event.key :p)
+      and
+        or event.metaKey event.ctrlKey
+        is (keycode event.keyCode) :p
       do $ if (not event.shiftKey)
         do
           event.preventDefault
@@ -144,6 +147,7 @@ var
     :flexDirection :row
     :justifyContent :center
     :alignItems :center
+    :fontFamily ":Verdana"
 
   :styleName $ {}
     :height 40
