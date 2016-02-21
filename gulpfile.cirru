@@ -35,7 +35,7 @@ gulp.task :rsync $ \ (cb)
       :src $ array :build/
       :recursive true
       :args $ array :--verbose
-      :dest :frp:~/repo/Cirru/cirru-light-editor/
+      :dest :tiye:~/repo/Cirru/light-editor/
       :deleteAll true
     \ (error stdout stderr cmd)
       console.log error stdout stderr cmd

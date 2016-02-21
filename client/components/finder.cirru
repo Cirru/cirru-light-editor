@@ -57,7 +57,7 @@ var
       var
         filepath $ file.get :filepath
       or (is keys.length 0)
-        keys.some $ \ (key)
+        keys.every $ \ (key)
           > (filepath.indexOf key) 0
 
   :onChange $ \ (event)

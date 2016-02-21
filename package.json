@@ -13,7 +13,7 @@
   ],
   "devDependencies": {
     "actions-recorder": "^1.6.3",
-    "autoprefixer-loader": "^3.2.0",
+    "autoprefixer": "^6.3.3",
     "cirru-editor": "file:///Users/chen/repo/cirru/cirru-editor",
     "cirru-parser": "^0.10.2",
     "cirru-script": "0.5.3-0",
@@ -31,6 +31,8 @@
     "gutil": "^1.6.4",
     "immutablepatch": "^0.2.2",
     "keycode": "^2.1.0",
+    "postcss-loader": "^0.8.1",
+    "precss": "^1.4.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "rsyncwrapper": "^0.4.2",

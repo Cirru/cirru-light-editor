@@ -2,7 +2,9 @@
 var
   fs $ require :fs
   path $ require :path
+  precss $ require :precss
   webpack $ require :webpack
+  autoprefixer $ require :autoprefixer
   settings $ require :./settings
 
 = module.exports $ \ (info)
@@ -26,11 +28,14 @@ var
 
     :module $ {}
       :loaders $ []
-        {} (:test /\.cirru$) (:loader :cirru-script) (:ignore /node_modules)
+        {} (:test /\.cirru$) (:loader :cirru-script)
         {} (:test "/\.(png|jpg|gif)$") (:loader :url-loader)
           :query $ {} (:limit 100)
-        {} (:test /\.css$) $ :loader :style!css!autoprefixer
+        {} (:test /\.css$) $ :loader :style!css!postcss
         {} (:test /\.json$) $ :loader :json
+
+    :postcss $ \ ()
+      [] autoprefixer precss
 
     :plugins $ []
       new webpack.optimize.CommonsChunkPlugin :vendor :vendor.js
