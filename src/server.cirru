@@ -36,6 +36,7 @@ wss.on :connection $ \ (ws)
     switch (. action 0)
       :update-file
         fs.writeFileSync actionData.file actionData.text
+        console.log ":update file:" actionData.file
         var
           newCollectionAtom $ collectionAtom.map $ \ (file)
             cond
