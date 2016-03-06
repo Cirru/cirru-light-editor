@@ -1,5 +1,5 @@
 
-require :cirru-editor/style/layout.css
+require :./style/editor-tmp.css
 
 var
   React $ require :react
