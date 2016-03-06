@@ -3,13 +3,20 @@ var
   fs $ require :fs
   WebSocketServer $ require :ws
   path $ require :path
+  Immutable $ require :immutable
   immutablediff $ require :immutablediff
 
   dirReader $ require :./dir-reader
 
-  entry $ . process.argv 2
+  entries $ ... process.argv
+    slice 2
+    map $ \ (entry)
+      cond
+        is (. entry 0) :/
+        , entry
+        path.join process.env.PWD entry
 
-if (not $ ? entry)
+if (is entries.length 0)
   do
     console.log ":please specify a folder"
     process.exit 1
@@ -17,10 +24,7 @@ if (not $ ? entry)
 var
   wss $ new WebSocketServer.Server $ {} :port 7001
   refreshCollection $ \ ()
-    dirReader.getInfo $ cond
-      is (. entry 0) :/
-      , entry
-      path.join process.env.PWD entry
+    dirReader.getInfo $ Immutable.fromJS entries
   collectionAtom $ refreshCollection
 
 wss.on :connection $ \ (ws)

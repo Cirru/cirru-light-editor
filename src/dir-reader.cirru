@@ -21,16 +21,18 @@ var
         getPaths childPath
         Immutable.fromJS $ [] childPath
 
-= exports.getInfo $ \ (currentPath)
-  var
-    allPaths $ getPaths currentPath (Immutable.List)
-  allPaths.map $ \ (filepath)
-    Immutable.fromJS $ {}
-      :filepath filepath
-      :baseDirectory currentPath
-      :extname $ path.extname filepath
-      :text $ fs.readFileSync filepath :utf8
-      :mtime $ bind
-        . (fs.statSync filepath) :mtime
-        \ (modifiedTime)
-          ... (new Date modifiedTime) (valueOf)
+= exports.getInfo $ \ (currentPaths)
+  ... currentPaths
+    flatMap $ \ (currentPath)
+      var
+        allPaths $ getPaths currentPath (Immutable.List)
+      allPaths.map $ \ (filepath)
+        Immutable.fromJS $ {}
+          :filepath filepath
+          :baseDirectory currentPath
+          :extname $ path.extname filepath
+          :text $ fs.readFileSync filepath :utf8
+          :mtime $ bind
+            . (fs.statSync filepath) :mtime
+            \ (modifiedTime)
+              ... (new Date modifiedTime) (valueOf)
