@@ -25,12 +25,18 @@ var
     {}
       :openFilepath null
       :mode :
+      :height window.innerHeight
 
   :componentDidMount $ \ ()
     window.addEventListener :keydown @onWindowKeydown
+    window.addEventListener :resize @onWindowResize
 
   :componentWillUnmount $ \ ()
     window.removeEventListener :keydown @onWindowKeydown
+    window.removeEventListener :resize @onWindowResize
+
+  :onWindowResize $ \ ()
+    @setState $ {} :height window.innerHeight
 
   :onWindowKeydown $ \ (event)
     if
@@ -83,13 +89,13 @@ var
       cond (? @state.openFilepath)
         div ({} :style @styleContainer)
           div ({} :style @styleName) @state.openFilepath
-          div ({} :style @styleBox)
+          div ({} :style (@styleBox))
             cond (? $ @state.openFilepath.match /\.cirru$)
               CirruEditor $ {}
                 :tree $ Immutable.fromJS $ cirruParser.pare (file.get :text)
                 :onSave @onSaveCirru
                 :key @state.openFilepath
-                :height (- window.innerHeight 40)
+                :height (- @state.height 40)
               TextEditor $ {} :text (file.get :text) :onSave @onSaveText
                 , :key @state.openFilepath
         @renderEmpty
@@ -147,12 +153,12 @@ var
     :flexDirection :row
     :justifyContent :center
     :alignItems :center
-    :fontFamily ":Verdana"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
 
   :styleName $ {}
     :height 40
     :color $ hsl 0 0 80
-    :fontFamily ":Menlo, Courier, monospace"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :fontSize 14
     :lineHeight :40px
     :padding ":0 8px"
@@ -161,7 +167,8 @@ var
     :display :flex
     :flexDirection :column
 
-  :styleBox $ {}
-    :flex 1
-    :position :relative
-    :height $ - window.innerHeight 40
+  :styleBox $ \ ()
+    {}
+      :flex 1
+      :position :relative
+      :height $ - @state.height 40

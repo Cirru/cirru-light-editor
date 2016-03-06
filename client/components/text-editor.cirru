@@ -58,7 +58,7 @@ var
     :color :white
     :border :none
     :outline :none
-    :fontFamily ":Menlo, Courier, monospace"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :fontSize 14
     :lineHeight :24px
 

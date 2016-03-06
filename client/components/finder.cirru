@@ -123,7 +123,7 @@ var
     :border :none
     :lineHeight :40px
     :outline :none
-    :fontFamily ":Menlo, Courier, monospace"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :padding ":0 10px"
     :fontSize 14
     :color :white
@@ -135,7 +135,7 @@ var
     :padding ":0 10px"
     :borderTop $ + ":1px solid " (hsl 0 0 16)
     :cursor :pointer
-    :fontFamily ":Menlo, Courier, monospace"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :backgroundColor $ cond isSelected
       hsl 0 0 40
       hsl 0 0 10

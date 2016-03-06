@@ -21,10 +21,10 @@ var
     :module $ {}
       :loaders $ []
         {} (:test /\.cirru$) (:loader :cirru-script)
-        {} (:test "/\.(png|jpg)$") (:loader :url-loader)
+        {} (:test "/\.(png|jpg|woff2)$") (:loader :url-loader)
           :query $ {} (:limit 100)
         {} (:test /\.css$) $ :loader
-          ExtractTextPlugin.extract :style-loader :css!postcss
+          ExtractTextPlugin.extract :style-loader :css?importLoaders=1!autoprefixer
 
     :postcss webpackConfig.postcss
 

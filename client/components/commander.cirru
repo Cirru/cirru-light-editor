@@ -59,7 +59,7 @@ var
     :border :none
     :lineHeight :40px
     :outline :none
-    :fontFamily ":Menlo, Courier, monospace"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :padding ":0 10px"
     :fontSize 14
     :color :white
@@ -70,5 +70,5 @@ var
     :lineHeight :40px
     :color $ hsl 0 0 70
     :cursor :pointer
-    :fontFamily ":Menlo, Courier, monospace"
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :padding ":0 10px"

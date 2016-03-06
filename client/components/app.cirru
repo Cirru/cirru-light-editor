@@ -54,12 +54,15 @@ var
       store $ @props.core.get :store
       isConnected $ store.getIn $ [] :device :isConnected
 
-    div ({} :className :app)
+    div ({} :className :app :style @styleRoot)
       cond isConnected
         Workspace $ {} :collection (store.get :collection) :send @props.send
         Connecting
       cond @state.showDevTools
         @renderLayer
+
+  :styleRoot $ {}
+    :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
 
   :styleLayer $ {}
     :position :absolute
