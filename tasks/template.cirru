@@ -23,6 +23,6 @@ var
           link $ {} :rel :stylesheet :href assets.style
         script $ {} :src assets.vendor :defer true
         script $ {} :src assets.main :defer true
-        style null ":body * {box-sizing: border-box; background-color: black;}"
+        style null ":body * {box-sizing: border-box;}"
       body ({} :style ":margin: 0;")
         div ({} :id :app)

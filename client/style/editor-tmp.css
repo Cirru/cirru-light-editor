@@ -31,21 +31,24 @@
   border: none;
   border: 1px solid hsla(0,100%,100%,0.25);
   border-width: 0px 0px 0px 1px;
-  padding: 0px 0px 0px 14px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  padding: 0px 0px 0px 0px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-left: 8px;
   vertical-align: top;
+  margin-left: 12px;
 }
 
 .cirru-expr:focus {
   border-color: hsla(360, 100%, 100%, 0.5);
 }
 
-.cirru-expr.is-inline {
+.cirru-expr.is-last {
   display: inline-block;
   vertical-align: top;
-  margin-right: 14px;
-  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
 }
 
 .cirru-expr.is-empty {
@@ -56,6 +59,14 @@
   display: block;
   margin-top: 0;
   margin-left: 10px;
+}
+
+.cirru-expr.is-simple {
+  display: inline-block;
+  border-width: 0 0 1px 0;
+  padding-bottom: 4px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 input.cirru-token {
@@ -93,7 +104,7 @@ input.cirru-token.is-fuzzy {
 .cirru-tool-button {
   color: white;
   font-size: 12px;
-  font-family: Menlo, Consolas, monospace;
+  font-family: Source Code Pro, Menlo, Consolas, monospace;
   background-color: hsl(120,40%,40%);
   padding: 0 6px;
   line-height: 18px;
