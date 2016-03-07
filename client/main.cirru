@@ -15,7 +15,10 @@ var
   domain $ cond (? pageUrl.query)
     or pageUrl.query.domain :localhost
     , :localhost
-  ws $ new WebSocket $ + :ws:// domain ::7001
+  port $ cond (? pageUrl.query)
+    or pageUrl.query.port :7001
+    , :7001
+  ws $ new WebSocket $ + :ws:// domain :: port
 
   send $ \ (type data)
     ws.send $ JSON.stringify $ [] type data

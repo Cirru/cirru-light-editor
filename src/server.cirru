@@ -15,6 +15,9 @@ var
         is (. entry 0) :/
         , entry
         path.join process.env.PWD entry
+  port $ cond (? process.env.PORT)
+    parseInt process.env.PORT
+    , 7001
 
 if (is entries.length 0)
   do
@@ -22,7 +25,7 @@ if (is entries.length 0)
     process.exit 1
 
 var
-  wss $ new WebSocketServer.Server $ {} :port 7001
+  wss $ new WebSocketServer.Server $ {} :port port
   refreshCollection $ \ ()
     dirReader.getInfo $ Immutable.fromJS entries
   collectionAtom $ refreshCollection
@@ -61,4 +64,4 @@ wss.on :connection $ \ (ws)
 
   ws.on :close $ \ ()
 
-console.log ":started server at 7001"
+console.log $ + ":started server at " port
