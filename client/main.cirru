@@ -57,6 +57,8 @@ recorder.subscribe render
       recorder.dispatch :collection/patch action.data
   return
 
+mixpanel.track ":light-editor loaded"
+
 if module.hot $ do
   module.hot.accept :./components/app $ \ ()
     = App $ React.createFactory $ require :./components/app

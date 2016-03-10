@@ -56,6 +56,7 @@ var
     @setState $ {}
       :openFilepath filepath
       :mode :basic
+    mixpanel.track ":open finder"
 
   :onSaveCirru $ \ (tree)
     var
@@ -63,11 +64,13 @@ var
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
+    mixpanel.track ":save cirru file"
 
   :onSaveText $ \ (text)
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
+    mixpanel.track ":save text file"
 
   :onFinderClose $ \ ()
     @setState $ {} :mode :basic
@@ -79,6 +82,12 @@ var
   :onSendCommand $ \ (info)
     @setState $ {} :mode :basic
     @props.send :refresh
+    mixpanel.track ":open commander"
+
+  :mixpanelTrack $ \ (name props)
+    if (is name ":dispatch update-token") $ do
+      return ":skip very frequent keystrokes"
+    mixpanel.track name props
 
   :renderEditor $ \ ()
     var
@@ -96,6 +105,7 @@ var
                 :onSave @onSaveCirru
                 :key @state.openFilepath
                 :height (- @state.height 40)
+                :mixpanelTrack @mixpanelTrack
               TextEditor $ {} :text (file.get :text) :onSave @onSaveText
                 , :key @state.openFilepath
         @renderEmpty

@@ -45,6 +45,7 @@ var
       current $ files.get @state.selectedIndex
     if (? current) $ do
       @onSelect current
+    mixpanel.track ":keyboard select file"
     return
 
   :filterFiles $ \ ()
@@ -91,6 +92,7 @@ var
       var
         onSelect $ \\ ()
           @onSelect file
+          mixpanel.trach ":click select file"
       div
         {}
           :style $ @styleFile
