@@ -37,6 +37,7 @@ recorder.request render
 recorder.subscribe render
 
 = ws.onopen $ \ ()
+  mixpanel.track ":light-editor connected"
   recorder.dispatch :device/connect
 
 = ws.onclose $ \ ()
@@ -56,8 +57,6 @@ recorder.subscribe render
     :patch
       recorder.dispatch :collection/patch action.data
   return
-
-mixpanel.track ":light-editor loaded"
 
 if module.hot $ do
   module.hot.accept :./components/app $ \ ()
