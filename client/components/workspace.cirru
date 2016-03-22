@@ -81,8 +81,11 @@ var
 
   :onSendCommand $ \ (info)
     @setState $ {} :mode :basic
-    @props.send :refresh
-    mixpanel.track ":open commander"
+    switch (info.get :command)
+      :refresh
+        @props.send :refresh
+        mixpanel.track ":open commander"
+    return
 
   :mixpanelTrack $ \ (name props)
     if (is name ":dispatch update-token") $ do
@@ -118,6 +121,7 @@ var
             , :openFilepath @state.openFilepath :onClose @onFinderClose
         :commander
           Commander $ {} :onSendCommand @onSendCommand
+            , :onClose @onFinderClose
 
   :render $ \ ()
     div ({} :style @styleRoot)

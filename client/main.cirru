@@ -6,6 +6,8 @@ var
   ReactDOM $ require :react-dom
   recorder $ require :actions-recorder
   urlParse $ require :url-parse
+  Immutable $ require :immutable
+  installDevTools $ require :immutable-devtools
 
   schema $ require :./schema
   updater $ require :./updater
@@ -28,6 +30,8 @@ var
     ReactDOM.render
       App $ {} :core core :send send
       document.querySelector :#app
+
+installDevTools.default Immutable
 
 recorder.setup $ {}
   :updater updater
