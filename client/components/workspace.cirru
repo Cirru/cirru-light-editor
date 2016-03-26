@@ -88,9 +88,6 @@ var
     return
 
   :mixpanelTrack $ \ (name props)
-    if (is name ":dispatch update-token") $ do
-      return ":skip very frequent keystrokes"
-    mixpanel.track name props
 
   :renderEditor $ \ ()
     var
@@ -108,7 +105,7 @@ var
                 :onSave @onSaveCirru
                 :key @state.openFilepath
                 :height (- @state.height 40)
-                :mixpanelTrack @mixpanelTrack
+                :eventTrack @mixpanelTrack
               TextEditor $ {} :text (file.get :text) :onSave @onSaveText
                 , :key @state.openFilepath
         @renderEmpty
