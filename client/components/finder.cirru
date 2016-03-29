@@ -56,10 +56,12 @@ var
           > (. (piece.trim) :length) 0
     @props.collection.filter $ \\ (file)
       var
-        filepath $ file.get :filepath
+        filepath $ ... file
+          get :filepath
+          replace (file.get :baseDirectory) :
       or (is keys.length 0)
         keys.every $ \ (key)
-          > (filepath.indexOf key) 0
+          >= (filepath.indexOf key) 0
 
   :onChange $ \ (event)
     @setState $ {} :text event.target.value :selectedIndex 0
