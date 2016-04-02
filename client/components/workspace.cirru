@@ -56,7 +56,7 @@ var
     @setState $ {}
       :openFilepath filepath
       :mode :basic
-    mixpanel.track ":open finder"
+    ga :send :event ":open finder"
 
   :onSaveCirru $ \ (tree)
     var
@@ -64,13 +64,13 @@ var
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
-    mixpanel.track ":save cirru file"
+    ga :send :event ":save cirru file"
 
   :onSaveText $ \ (text)
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
-    mixpanel.track ":save text file"
+    ga :send :event ":save text file"
 
   :onFinderClose $ \ ()
     @setState $ {} :mode :basic
@@ -84,7 +84,7 @@ var
     switch (info.get :command)
       :refresh
         @props.send :refresh
-        mixpanel.track ":open commander"
+        ga :send :event ":open commander"
     return
 
   :mixpanelTrack $ \ (name props)

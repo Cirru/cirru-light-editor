@@ -42,7 +42,7 @@ recorder.request render
 recorder.subscribe render
 
 = ws.onopen $ \ ()
-  mixpanel.track ":light-editor connected"
+  ga :send :event ":light-editor connected"
   recorder.dispatch :device/connect
 
 = ws.onclose $ \ ()

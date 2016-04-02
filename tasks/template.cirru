@@ -10,6 +10,7 @@ var
   logoUrl :http://logo.cirru.org/cirru-32x32.png
 
   mixpanelHTML $ fs.readFileSync (path.join __dirname :mixpanel.html) :utf8
+  gaHTML $ fs.readFileSync (path.join __dirname :ga.html) :utf8
 
 = module.exports $ \ (env)
   var
@@ -22,7 +23,7 @@ var
       head null
         title null ":Light Editor"
         meta $ {} :charset :utf-8
-        , mixpanelHTML
+        , gaHTML
         link $ {} :rel :icon :href logoUrl
         cond (? assets.style)
           link $ {} :rel :stylesheet :href assets.style
