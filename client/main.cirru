@@ -12,6 +12,7 @@ var
 
   schema $ require :./schema
   updater $ require :./updater
+  analytics $ require :./util/analytics
   App $ React.createFactory $ require :./components/app
 
   pageUrl $ urlParse (location.toString) true
@@ -42,7 +43,7 @@ recorder.request render
 recorder.subscribe render
 
 = ws.onopen $ \ ()
-  ga :send :event ":light-editor connected"
+  analytics.trackAction ":light-editor connected"
   recorder.dispatch :device/connect
 
 = ws.onclose $ \ ()

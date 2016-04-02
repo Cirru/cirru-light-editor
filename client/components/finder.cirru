@@ -5,6 +5,8 @@ var
   keycode $ require :keycode
   Immutable $ require :immutable
 
+  analytics $ require :../util/analytics
+
   ({}~ div input) React.DOM
 
 = module.exports $ React.createClass $ {}
@@ -45,7 +47,7 @@ var
       current $ files.get @state.selectedIndex
     if (? current) $ do
       @onSelect current
-    ga :send :event ":keyboard select file"
+    analytics.trackAction ":keyboard select file"
     return
 
   :filterFiles $ \ ()
@@ -94,7 +96,7 @@ var
       var
         onSelect $ \\ ()
           @onSelect file
-          ga :send :event ":click select file"
+          analytics.trackAction ":click select file"
       div
         {}
           :style $ @styleFile

@@ -7,6 +7,8 @@ var
   cirruParser $ require :cirru-parser
   cirruWriter $ require :cirru-writer
 
+  analytics $ require :../util/analytics
+
   Finder $ React.createFactory $ require :./finder
   Commander $ React.createFactory $ require :./commander
   TextEditor $ React.createFactory $ require :./text-editor
@@ -56,7 +58,7 @@ var
     @setState $ {}
       :openFilepath filepath
       :mode :basic
-    ga :send :event ":open finder"
+    analytics.trackAction ":open finder"
 
   :onSaveCirru $ \ (tree)
     var
@@ -64,13 +66,13 @@ var
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
-    ga :send :event ":save cirru file"
+    analytics.trackAction ":save cirru file"
 
   :onSaveText $ \ (text)
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
-    ga :send :event ":save text file"
+    analytics.trackAction ":save text file"
 
   :onFinderClose $ \ ()
     @setState $ {} :mode :basic
@@ -84,7 +86,7 @@ var
     switch (info.get :command)
       :refresh
         @props.send :refresh
-        ga :send :event ":open commander"
+        analytics.trackAction ":open commander"
     return
 
   :mixpanelTrack $ \ (name props)
