@@ -62,7 +62,10 @@ var
 
   :onSaveCirru $ \ (tree)
     var
-      text $ cirruWriter.render (tree.toJS)
+      isJSON $ ? (@state.openFilepath.match /\.json$)
+      text $ cond isJSON
+        JSON.stringify tree null 2
+        cirruWriter.render (tree.toJS)
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
@@ -93,17 +96,24 @@ var
 
   :renderEditor $ \ ()
     var
+      filepath @state.openFilepath
       file $ @props.collection.find $ \\ (file)
         is (file.get :filepath) @state.openFilepath
+      rawContent $ cond (? file) (file.get :text) :
+      fileContent $ cond (is rawContent :) :[] rawContent
+      isJSON $ and (? filepath) (? (filepath.match /\.json))
+      isCirru $ and (? filepath) (? (filepath.match /\.cirru))
 
     div ({} :style @styleEditor)
       cond (? @state.openFilepath)
         div ({} :style @styleContainer)
           div ({} :style @styleName) @state.openFilepath
           div ({} :style (@styleBox))
-            cond (? $ @state.openFilepath.match /\.cirru$)
+            cond (or isJSON isCirru)
               CirruEditor $ {}
-                :tree $ Immutable.fromJS $ cirruParser.pare (file.get :text)
+                :tree $ Immutable.fromJS $ cond isJSON
+                  JSON.parse fileContent
+                  cirruParser.pare fileContent
                 :onSave @onSaveCirru
                 :key @state.openFilepath
                 :height (- @state.height 40)
