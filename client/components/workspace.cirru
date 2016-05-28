@@ -64,7 +64,7 @@ var
     var
       isJSON $ ? (@state.openFilepath.match /\.json$)
       text $ cond isJSON
-        JSON.stringify tree null 2
+        JSON.stringify tree
         cirruWriter.render (tree.toJS)
     @props.send :update-file $ {}
       :file @state.openFilepath
