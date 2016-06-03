@@ -28,6 +28,7 @@ var
       :openFilepath null
       :mode :
       :height window.innerHeight
+      :clipboard null
 
   :componentDidMount $ \ ()
     window.addEventListener :keydown @onWindowKeydown
@@ -77,6 +78,9 @@ var
       :text text
     analytics.trackAction ":save text file"
 
+  :onClipboard $ \ (expression)
+    @setState $ {} :clipboard expression
+
   :onFinderClose $ \ ()
     @setState $ {} :mode :basic
 
@@ -118,6 +122,8 @@ var
                 :key @state.openFilepath
                 :height (- @state.height 40)
                 :eventTrack @mixpanelTrack
+                :clipboard @state.clipboard
+                :onClipboard @onClipboard
               TextEditor $ {} :text (file.get :text) :onSave @onSaveText
                 , :key @state.openFilepath
         @renderEmpty
