@@ -37,6 +37,10 @@ var
       do
         event.preventDefault
         @setState $ {} :showDevTools $ not @state.showDevTools
+    if
+      and (or event.metaKey event.ctrlKey) (is event.keyCode 221)
+      do
+        event.preventDefault
     return
 
   :renderLayer $ \ ()
