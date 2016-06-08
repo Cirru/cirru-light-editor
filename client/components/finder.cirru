@@ -69,7 +69,7 @@ var
     @setState $ {} :text event.target.value :selectedIndex 0
 
   :onSelect $ \ (file)
-    @props.onFileSelect (file.get :filepath)
+    @props.onFileSelect (file.get :filepath) (file.get :baseDirectory)
 
   :onClose $ \ ()
     @props.onClose
@@ -139,15 +139,14 @@ var
     :fontSize 14
     :lineHeight :40px
     :padding ":0 10px"
-    :borderTop $ + ":1px solid " (hsl 0 0 16)
     :cursor :pointer
     :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
     :backgroundColor $ cond isSelected
-      hsl 0 0 40
+      hsl 0 0 20
       hsl 0 0 10
     :color $ cond isOpen
       hsl 0 0 100
-      hsl 0 0 70
+      hsl 0 0 60
     :whiteSpace :nowrap
     :overflowX :hidden
     :textOverflow :ellipsis

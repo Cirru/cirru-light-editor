@@ -26,6 +26,7 @@ var
   :getInitialState $ \ ()
     {}
       :openFilepath null
+      :baseDirectory :
       :mode :
       :height window.innerHeight
       :clipboard null
@@ -55,9 +56,10 @@ var
           @setState $ {} :mode :commander
     return
 
-  :onFileSelect $ \ (filepath)
+  :onFileSelect $ \ (filepath baseDirectory)
     @setState $ {}
       :openFilepath filepath
+      :baseDirectory baseDirectory
       :mode :basic
     analytics.trackAction ":open finder"
 
@@ -111,7 +113,8 @@ var
     div ({} :style @styleEditor)
       cond (? @state.openFilepath)
         div ({} :style @styleContainer)
-          div ({} :style @styleName) @state.openFilepath
+          div ({} :style @styleName)
+            @state.openFilepath.replace @state.baseDirectory :
           div ({} :style (@styleBox))
             cond (or isJSON isCirru)
               CirruEditor $ {}
