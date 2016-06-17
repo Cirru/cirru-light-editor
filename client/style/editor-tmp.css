@@ -1,0 +1,8 @@
+
+.cirru-summary-line {
+  color: hsla(0, 0%, 100%, 0.7);
+}
+
+.cirru-summary-line.is-selected {
+  color: white;
+}

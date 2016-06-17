@@ -48,10 +48,6 @@ recorder.subscribe render
 
 = ws.onclose $ \ ()
   recorder.dispatch :device/disconnect
-  setTimeout
-    \ ()
-      location.reload
-    , 4000
 
 = ws.onmessage $ \ (msg)
   var

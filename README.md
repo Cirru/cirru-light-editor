@@ -4,26 +4,20 @@ Cirru Light Editor
 
 This is an editor based on the module `cirru-editor`.
 
-Basicly, it scans and saves file in `env.PWD`, and does:
+[User Guide](https://github.com/Cirru/cirru-light-editor/wiki/Start-using-Cirru-Editor)
 
-* Editing code in GUI
-* Load file from file system
-* Save (with Command s) code via WebSocket
-* Watch file system and reload file list
+![](https://pbs.twimg.com/media/ClKeep2VYAAWuTc.png:large)
 
 ### Usage
 
-The editor is not quite ready for daily use but you may try:
+The editor is quite rough yet:
 
 ```bash
-npm install -g cirru-light-editor
-```
-
-`cd` to a directory which contains `.cirru` files and run:
-
-```
-cirru-light-editor folder
-cle folder # a short alias
+npm install -g cirru-light-editor # it's based on Node.js
+mkdir demo/
+touch demo/core.clj.json # prepare at least one file
+touch demo/lib.clj.json # prepare at least one file
+cle demo/ # starts the server
 ```
 
 Then you may visit http://repo.cirru.org/light-editor/

@@ -14,7 +14,8 @@ var
   TextEditor $ React.createFactory $ require :./text-editor
   CirruEditor $ React.createFactory $ require :cirru-editor
 
-  ({}~ div) React.DOM
+  ({}~ div a) React.DOM
+  guideUrl :https://github.com/Cirru/cirru-light-editor/wiki/Start-using-Cirru-Editor
 
 = module.exports $ React.createClass $ {}
   :displayName :app-workspace
@@ -88,7 +89,8 @@ var
 
   :renderEmpty $ \ ()
     div ({} :style @styleEmpty)
-      , ":No file is Selected"
+      div ({}) ":`Command + p` for file finder"
+      div ({}) ":`Command + Shift + p` for commands"
 
   :onSendCommand $ \ (info)
     @setState $ {} :mode :basic
@@ -115,6 +117,7 @@ var
         div ({} :style @styleContainer)
           div ({} :style @styleName)
             @state.openFilepath.replace @state.baseDirectory :
+            a ({} :style @styleGuide :href guideUrl :target :_blanck) :Guide
           div ({} :style (@styleBox))
             cond (or isJSON isCirru)
               CirruEditor $ {}
@@ -182,10 +185,12 @@ var
     :width :100%
     :height :100%
     :display :flex
-    :flexDirection :row
+    :flexDirection :column
     :justifyContent :center
     :alignItems :center
     :fontFamily ":Source Code Pro, Menlo, Courier, monospace"
+    :lineHeight 2
+    :fontSize 14
 
   :styleName $ {}
     :height 40
@@ -194,6 +199,9 @@ var
     :fontSize 14
     :lineHeight :40px
     :padding ":0 8px"
+    :display :flex
+    :flexDirection :row
+    :justifyContent :space-between
 
   :styleContainer $ {}
     :display :flex
@@ -204,3 +212,7 @@ var
       :flex 1
       :position :relative
       :height $ - @state.height 40
+
+  :styleGuide $ {}
+    :color $ hsl 200 90 40
+    :fontSize 12

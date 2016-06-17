@@ -61,7 +61,7 @@ var
     div ({} :className :app :style @styleRoot)
       cond isConnected
         Workspace $ {} :collection (store.get :collection) :send @props.send
-        Connecting
+        Connecting $ {} :device (store.get :device)
       cond @state.showDevTools
         @renderLayer
 

@@ -5,6 +5,10 @@
     , true
 
 = exports.disconnect $ \ (db data)
-  db.setIn
-    [] :device :isConnected
-    , false
+  ... db
+    setIn
+      [] :device :isConnected
+      , false
+    setIn
+      [] :device :isErrored
+      , true
