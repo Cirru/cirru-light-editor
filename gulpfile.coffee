@@ -11,7 +11,9 @@ gulp.task 'html', (cb) ->
 
 gulp.task 'script', ->
   coffee = require('gulp-coffee')
-  gulp.src('src/*.coffee').pipe(coffee(dest: '../lib')).pipe gulp.dest('lib')
+  gulp.src('src/*.coffee')
+  .pipe(coffee(bare: true))
+  .pipe gulp.dest('lib')
 
 gulp.task 'del', (cb) ->
   del = require('del')
@@ -24,7 +26,7 @@ gulp.task 'rsync', (cb) ->
     src: [ 'build/' ]
     recursive: true
     args: [ '--verbose' ]
-    dest: 'tiye:~/repo/Cirru/light-editor/'
+    dest: 'chen@tiye.me:~/repo/Cirru/light-editor/'
     deleteAll: true
   }, (error, stdout, stderr, cmd) ->
     console.log error, stdout, stderr, cmd
