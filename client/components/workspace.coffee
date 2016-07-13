@@ -59,7 +59,7 @@ module.exports = React.createClass(
 
   onSaveCirru: (tree) ->
     isJSON = @state.openFilepath.match(/\.json$/) != null
-    isEDN = @state.openFilepath.match(/\.edn$/) != null
+    isEDN = @state.openFilepath.match(/\.ir$/) != null
     text =
       if isJSON then JSON.stringify(tree)
       else if isEDN then vectorsFormat.write(tree.toJS())
@@ -103,7 +103,7 @@ module.exports = React.createClass(
 
     rawContent = if file? then file.get('text') else ''
     fileContent = if rawContent == '' then '[]' else rawContent
-    isEDN = filepath? and filepath.match(/\.edn/)?
+    isEDN = filepath? and filepath.match(/\.ir/)?
     isJSON = filepath? and filepath.match(/\.json/)?
     isCirru = filepath? and filepath.match(/\.cirru/)?
 
