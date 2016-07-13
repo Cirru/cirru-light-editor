@@ -5,6 +5,7 @@ var
   keycode $ require :keycode
   Immutable $ require :immutable
   cirruParser $ require :cirru-parser
+  vectorsFormat $ require :cirru-vectors-format
   cirruWriter $ require :cirru-writer
 
   analytics $ require :../util/analytics
@@ -67,9 +68,12 @@ var
   :onSaveCirru $ \ (tree)
     var
       isJSON $ ? (@state.openFilepath.match /\.json$)
+      isEDN $ ? (@state.openFilepath.match /\.edn$)
       text $ cond isJSON
         JSON.stringify tree
-        cirruWriter.render (tree.toJS)
+        cond isEDN
+          vectorsFormat.format (tree.toJS)
+          cirruWriter.render (tree.toJS)
     @props.send :update-file $ {}
       :file @state.openFilepath
       :text text
@@ -109,6 +113,7 @@ var
         is (file.get :filepath) @state.openFilepath
       rawContent $ cond (? file) (file.get :text) :
       fileContent $ cond (is rawContent :) :[] rawContent
+      isEDN $ and (? filepath) (? (filepath.match /\.edn))
       isJSON $ and (? filepath) (? (filepath.match /\.json))
       isCirru $ and (? filepath) (? (filepath.match /\.cirru))
 
@@ -123,7 +128,10 @@ var
               CirruEditor $ {}
                 :tree $ Immutable.fromJS $ cond isJSON
                   JSON.parse fileContent
-                  cirruParser.pare fileContent
+                  cond isEDN
+                    if (is fileContent :) ([])
+                      get (vectorsFormat.parse fileContent) :data
+                    cirruParser.pare fileContent
                 :onSave @onSaveCirru
                 :key @state.openFilepath
                 :height (- @state.height 40)
