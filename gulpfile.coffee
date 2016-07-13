@@ -10,8 +10,8 @@ gulp.task 'html', (cb) ->
   fs.writeFile 'build/index.html', html(env), cb
 
 gulp.task 'script', ->
-  script = require('gulp-cirru-script')
-  gulp.src('src/*.cirru').pipe(script(dest: '../lib')).pipe gulp.dest('lib')
+  coffee = require('gulp-coffee')
+  gulp.src('src/*.coffee').pipe(coffee(dest: '../lib')).pipe gulp.dest('lib')
 
 gulp.task 'del', (cb) ->
   del = require('del')

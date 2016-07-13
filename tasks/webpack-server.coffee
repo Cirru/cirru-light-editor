@@ -16,14 +16,14 @@ module.exports =
     filename: 'bundle.js'
   externals: nodeModules
   module: loaders: [ {
-    test: /\.cirru/
-    loader: 'cirru-script'
+    test: /\.coffee/
+    loader: 'coffee'
   } ]
   plugins: [ new (webpack.HotModuleReplacementPlugin) ]
   resolve: extensions: [
     '.js'
     ''
-    '.cirru'
+    '.coffee'
   ]
   plugins: [ new (webpack.HotModuleReplacementPlugin) ]
 

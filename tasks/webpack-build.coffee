@@ -18,8 +18,8 @@ module.exports = (info) ->
     resolve: webpackConfig.resolve
     module: loaders: [
       {
-        test: /\.cirru$/
-        loader: 'cirru-script'
+        test: /\.coffee$/
+        loader: 'coffee'
       }
       {
         test: /.(png|jpg|woff2)$/

@@ -23,13 +23,13 @@ module.exports = (info) ->
       publicPath: config.host + ':' + config.port + '/'
     resolve: extensions: [
       '.js'
-      '.cirru'
+      '.coffee'
       ''
     ]
     module: loaders: [
       {
-        test: /\.cirru$/
-        loader: 'cirru-script'
+        test: /\.coffee$/
+        loader: 'coffee'
       }
       {
         test: /.(png|jpg|gif|woff2)$/
