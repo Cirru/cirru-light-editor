@@ -15,7 +15,7 @@
     "actions-recorder": "^1.6.3",
     "autoprefixer": "^6.3.3",
     "autoprefixer-loader": "^3.2.0",
-    "cirru-editor": "^0.6.25",
+    "cirru-editor": "^0.6.26",
     "cirru-parser": "^0.10.2",
     "cirru-vectors-format": "^0.1.4",
     "cirru-writer": "^0.3.11",
